@@ -1,0 +1,1160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iot </title>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/local.css" />
+
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- you need to include the shieldui css and js assets in order for the charts to work -->
+    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/shieldui-all.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
+    <link id="gridcss" rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/dark-bootstrap/all.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- added new scripts for highcharts -->
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <!-- added new scripts for highcharts -->
+
+    <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
+		<!--script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script-->
+	<script type="text/javascript" src="js/jquery.simpleWeather.min.js" /></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+<script>
+/* Google Maps */
+$(document).ready(function() {
+  $.simpleWeather({
+    location: 'San Francisco, CA',
+    woeid: '',
+    unit: 'f',
+    success: function(weather) {
+	var temp = weather.temp;
+	var condition = weather.currently;
+	//alert(condition);
+	if(condition == "Light Rain" || condition == "Rain" || condition == "Showers" ){
+		document.getElementById('recommend').innerHTML = "Take an Umbrella. Rain in weather prediction.";
+	}
+	/* if(temp > 70){
+	document.getElementById('recommend').innerHTML = "Summer is here and it's Shorts weather!";
+  }else if(temp < 60 && temp > 50){
+	document.getElementById('recommend').innerHTML = "It's gonna be cold. A Jacket might come in handy!";
+  } */
+      html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
+      html += '<ul><li>'+weather.city+', '+weather.region+'</li>';
+      html += '<li class="currently">'+weather.currently+'</li></ul><br/>';
+     // html += '<li>'+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</li></ul><br/>';
+	  // html += '<li>'+weather.sunrise+' '+weather.sunset+'</li></ul>';
+	  html +='<div class="well"><h4>Sunrise '+weather.sunrise+'</h4>';
+	  html +='<h4>Sunset '+weather.sunset+'</h4></div>';
+	   html +='<div class="well"><h4>Forecast</h4>';
+	   html +='<table class="table table-striped">';
+	for(var i=0;i<weather.forecast.length;i++) {
+        html += '<tr><td>'+weather.forecast[i].day+'</td>';
+		html += '<td>'+weather.forecast[i].high+'</td>';
+		html += '<td>'+weather.forecast[i].low+'</td></tr>';
+      }
+	  html +='</table></div>';
+      $("#workWeather").html(html);
+    },
+    error: function(error) {
+      $("#workWeather").html('<p>'+error+'</p>');
+    }
+  }); 
+  
+  $.simpleWeather({
+    location: 'Yosemite, CA',
+    woeid: '',
+    unit: 'f',
+    success: function(weather) {
+	var temp = weather.temp;
+	var condition = weather.currently;
+	//alert(condition);
+	if(condition == "Light Rain" || condition == "Rain" || condition == "Showers" ){
+		document.getElementById('recommend').innerHTML = "Please take an Umbrella. Rain/showers in weather prediction.";
+	} else if(condition == "Fair" && temp > 70){
+		document.getElementById('recommend').innerHTML = "Clear skies and hot temperatures. Time to wear Shorts!";
+	  } else if(condition == "Fair" && temp < 60){
+		document.getElementById('recommend').innerHTML = "Clear skies but low temperatures. Carry a Jacket!";
+	  } else if(condition == "Cloudy" || condition == "Partly Cloudy" && temp < 65){
+		document.getElementById('recommend').innerHTML = "The temperatures are below 60 degrees. Wear that extra layer!";
+	  }
+	/* if(temp > 70){
+	document.getElementById('recommend').innerHTML = "Summer is here and it's Shorts weather!";
+  }else if(temp < 60 && temp > 50){
+	document.getElementById('recommend').innerHTML = "It's gonna be cold. A Jacket might come in handy!";
+  } */
+      html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
+      html += '<ul><li>'+weather.city+', '+weather.region+'</li>';
+      html += '<li class="currently">'+weather.currently+'</li></ul><br/>';
+     // html += '<li>'+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</li></ul><br/>';
+	  // html += '<li>'+weather.sunrise+' '+weather.sunset+'</li></ul>';
+	  html +='<div class="well"><h4>Sunrise '+weather.sunrise+'</h4>';
+	  html +='<h4>Sunset '+weather.sunset+'</h4></div>';
+	   html +='<div class="well"><h4>Forecast</h4>';
+	   html +='<table class="table table-striped">';
+	for(var i=0;i<weather.forecast.length;i++) {
+        html += '<tr><td>'+weather.forecast[i].day+'</td>';
+		html += '<td>'+weather.forecast[i].high+'</td>';
+		html += '<td>'+weather.forecast[i].low+'</td></tr>';
+      }
+	  html +='</table></div>';
+      $("#homeWeather").html(html);
+    },
+    error: function(error) {
+      $("#homeWeather").html('<p>'+error+'</p>');
+    }
+  }); 
+});
+</script>
+<script>
+//Only Directions
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+
+function initialize() {
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  console.log("inside initailize function");
+  var mapOptions = {
+    zoom: 7,
+    center: new google.maps.LatLng(37.3393857,-121.8949555)
+	//chicago : 41.850033
+	//long: -87.6500523
+  };
+  
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('directions-panel'));
+console.log('loaded the map?');
+
+  //Aswin
+  var trafficLayer = new google.maps.TrafficLayer();
+  trafficLayer.setMap(map);
+
+ /* var control = document.getElementById('control');
+  control.style.display = 'block';
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(control); */
+//}
+
+//function calcRoute() {
+  /* var start = document.getElementById('start').value;
+  var end = document.getElementById('end').value; */
+  var start = "san jose, ca";
+  var end = "san francisco, ca";
+  var request = {
+    origin: start,
+    destination: end,
+    travelMode: google.maps.TravelMode.DRIVING,
+	//departureTime: new Date().getTime() / 1000,
+	//units: metric,
+	durationInTraffic: true
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+	  console.log(response.routes[0].legs[0]);
+    }
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+	<style>
+	
+	/* Directions Panel (Traffic) */
+	<style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      } 
+	  
+      #panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      } 
+    </style>
+    <style>
+      #directions-panel {
+        height: 100%;
+        float: right;
+        width: 390px;
+        overflow: auto;
+      }
+
+      #map-canvas {
+        margin-right: 400px;
+      }
+
+      #control {
+        background: #fff;
+        padding: 5px;
+        font-size: 14px;
+        font-family: Arial;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
+        display: none;
+      }
+
+      @media print {
+        #map-canvas {
+          height: 500px;
+          margin: 0;
+        }
+
+        #directions-panel {
+          float: none;
+          width: auto;
+        }
+      } 
+    </style>
+	
+	
+	<style>
+	/* Weather */
+	
+	@font-face {
+    font-family: 'weather';
+    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.eot');
+    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.eot?#iefix') format('embedded-opentype'),
+         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.woff') format('woff'),
+         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.ttf') format('truetype'),
+         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.svg#artill_clean_weather_iconsRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  //background: #1192d3 url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/austin-2.jpg) no-repeat bottom right;
+  //background-size: cover;
+}
+
+body {
+  padding: 45px 0;
+  font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.weather {
+  width: 450px;
+  margin: 0px auto;
+  text-align: center;
+  text-transform: uppercase;
+  /* #1192d3 url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/austin-2.jpg) no-repeat bottom right; */
+}
+
+#homeWeather{
+	background: url("assets/img/sjsu_tower.jpg") no-repeat bottom right;
+}
+
+#workWeather{
+	background: url("assets/img/ggb.jpg") no-repeat bottom right;
+}
+
+i {
+  color: #fff;
+  font-family: weather;
+  font-size: 150px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.0;
+}
+
+.icon-0:before { content: ":"; }
+.icon-1:before { content: "p"; }
+.icon-2:before { content: "S"; }
+.icon-3:before { content: "Q"; }
+.icon-4:before { content: "S"; }
+.icon-5:before { content: "W"; }
+.icon-6:before { content: "W"; }
+.icon-7:before { content: "W"; }
+.icon-8:before { content: "W"; }
+.icon-9:before { content: "I"; }
+.icon-10:before { content: "W"; }
+.icon-11:before { content: "I"; }
+.icon-12:before { content: "I"; }
+.icon-13:before { content: "I"; }
+.icon-14:before { content: "I"; }
+.icon-15:before { content: "W"; }
+.icon-16:before { content: "I"; }
+.icon-17:before { content: "W"; }
+.icon-18:before { content: "U"; }
+.icon-19:before { content: "Z"; }
+.icon-20:before { content: "Z"; }
+.icon-21:before { content: "Z"; }
+.icon-22:before { content: "Z"; }
+.icon-23:before { content: "Z"; }
+.icon-24:before { content: "E"; }
+.icon-25:before { content: "E"; }
+.icon-26:before { content: "3"; }
+.icon-27:before { content: "a"; }
+.icon-28:before { content: "A"; }
+.icon-29:before { content: "a"; }
+.icon-30:before { content: "A"; }
+.icon-31:before { content: "6"; }
+.icon-32:before { content: "1"; }
+.icon-33:before { content: "6"; }
+.icon-34:before { content: "1"; }
+.icon-35:before { content: "W"; }
+.icon-36:before { content: "1"; }
+.icon-37:before { content: "S"; }
+.icon-38:before { content: "S"; }
+.icon-39:before { content: "S"; }
+.icon-40:before { content: "M"; }
+.icon-41:before { content: "W"; }
+.icon-42:before { content: "I"; }
+.icon-43:before { content: "W"; }
+.icon-44:before { content: "a"; }
+.icon-45:before { content: "S"; }
+.icon-46:before { content: "U"; }
+.icon-47:before { content: "S"; }
+
+.weather h2 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: 50px;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.weather ul {
+  margin: 0;
+  padding: 0;
+}
+
+.weather li {
+  background: #fff;
+  background: rgba(255,255,255,0.90);
+  padding: 20px;
+  display: inline-block;
+  border-radius: 5px;
+  color: black;
+}
+
+.weather .currently {
+  margin: 0 20px;
+}
+
+	</style>
+</head>
+<body>
+
+    <div id="wrapper">
+
+          <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">User Dashboard</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul id="active" class="nav navbar-nav side-nav">
+					<li><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
+                    <li class="selected"><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
+                    <li><a href="alarm.html"><i class="fa fa-tasks fa-lg"></i> Alarm Clock</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                    <!--li class="dropdown messages-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge">2</span> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">2 New Messages</li>
+                            <li class="message-preview">
+                                <a href="#">
+                                    <span class="avatar"><i class="fa fa-bell"></i></span>
+                                    <span class="message">Security alert</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="message-preview">
+                                <a href="#">
+                                    <span class="avatar"><i class="fa fa-bell"></i></span>
+                                    <span class="message">Security alert</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="#">Go to Inbox <span class="badge">2</span></a></li>
+                        </ul>
+                    </li-->
+                    <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Steve Miller<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                            <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+
+                        </ul>
+                    </li>
+                    <!--li class="divider-vertical"></li>
+                    <li>
+                        <form class="navbar-search">
+                            <input type="text" placeholder="Search" class="form-control">
+                        </form>
+                    </li-->
+                </ul>
+            </div>
+			</nav>
+
+        <div id="page-wrapper">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Dashboard <small>Statistics and more</small></h1>
+                   <!-- <div class="alert alert-dismissable alert-warning">
+                        <button data-dismiss="alert" class="close" type="button">×</button>
+                        <h4>Warning!</h4>
+                        <p>You have two new messages.
+                            </p> 
+                    </div>-->
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-8">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Daily data for devices</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"> Rollback </h3>
+                        </div>
+                        <div class="panel-body feed">
+                            <button type="submit" id="stop" onclick="stopQuery()" class="btn btn-default">Stop Update</button>    
+                            <button type="submit" onclick="start()"  class="btn btn-default"> Start Updating </button>
+                            <select type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="dropdownRollback">
+                                <option onclick="get1HourData()" selected="selected">1 Hour</option>
+                                <option onclick="get1DayData()">1 Day</option>
+                                <option onclick="get1WeekData()">1 Week</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- test div here -->
+            <div class="row">
+
+                <div class="col-md-8">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Visits Based on a 10 days data</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="shieldui-chart1"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-rss"></i> Recommendations</h3>
+                        </div>
+                        <div class="panel-body feed">
+                          <div id="recommend"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- test div ends here -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Traffic Sources One month tracking </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="shieldui-grid1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Logins per week</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="shieldui-chart2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-magnet"></i> Server Overview</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="server-stats">
+                                <li>
+                                    <div class="key pull-right">CPU</div>
+                                    <div class="stat">
+                                        <div class="info">60% / 37°C / 3.3 Ghz</div>
+                                        <div class="progress progress-small">
+                                            <div style="width: 70%;" class="progress-bar progress-bar-danger"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="key pull-right">Mem</div>
+                                    <div class="stat">
+                                        <div class="info">29% / 4GB (16 GB)</div>
+                                        <div class="progress progress-small">
+                                            <div style="width: 29%;" class="progress-bar"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="key pull-right">LAN</div>
+                                    <div class="stat">
+                                        <div class="info">6 Mb/s <i class="fa fa-caret-down"></i>&nbsp; 3 Mb/s <i class="fa fa-caret-up"></i></div>
+                                        <div class="progress progress-small">
+                                            <div style="width: 48%;" class="progress-bar progress-bar-inverse"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+
+                    <header>
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#stats">Users</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#report">Favorites</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#dropdown1">Commenters</a>
+                            </li>
+                        </ul>
+                    </header>
+                    <div class="body tab-content">
+                        <div class="tab-pane clearfix active" id="stats">
+                            <h5 class="tab-header"><i class="fa fa-calendar-o fa-2x"></i> Last logged-in users</h5>
+                            <ul class="news-list">
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Ivan Gorge</a></div>
+                                        <div class="position">Software Engineer</div>
+                                        <div class="time">Last logged-in: Mar 12, 11:11</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Roman Novak</a></div>
+                                        <div class="position">Product Designer</div>
+                                        <div class="time">Last logged-in: Mar 12, 19:02</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Teras Uotul</a></div>
+                                        <div class="position">Chief Officer</div>
+                                        <div class="time">Last logged-in: Jun 16, 2:34</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Deral Ferad</a></div>
+                                        <div class="position">Financial Assistant</div>
+                                        <div class="time">Last logged-in: Jun 18, 4:20</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Konrad Polerd</a></div>
+                                        <div class="position">Sales Manager</div>
+                                        <div class="time">Last logged-in: Jun 18, 5:13</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="report">
+                            <h5 class="tab-header"><i class="fa fa-star fa-2x"></i> Popular contacts</h5>
+                            <ul class="news-list news-list-no-hover">
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Pol Johnsson</a></div>
+                                        <div class="options">
+                                            <button class="btn btn-xs btn-success">
+                                                <i class="fa fa-phone"></i>
+                                                Call
+                                            </button>
+                                            <button class="btn btn-xs btn-warning">
+                                                <i class="fa fa-envelope-o"></i>
+                                                Message
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Terry Garel</a></div>
+                                        <div class="options">
+                                            <button class="btn btn-xs btn-success">
+                                                <i class="fa fa-phone"></i>
+                                                Call
+                                            </button>
+                                            <button class="btn btn-xs btn-warning">
+                                                <i class="fa fa-envelope-o"></i>
+                                                Message
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Eruos Forkal</a></div>
+                                        <div class="options">
+                                            <button class="btn btn-xs btn-success">
+                                                <i class="fa fa-phone"></i>
+                                                Call
+                                            </button>
+                                            <button class="btn btn-xs btn-warning">
+                                                <i class="fa fa-envelope-o"></i>
+                                                Message
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Remus Reier</a></div>
+                                        <div class="options">
+                                            <button class="btn btn-xs btn-success">
+                                                <i class="fa fa-phone"></i>
+                                                Call
+                                            </button>
+                                            <button class="btn btn-xs btn-warning">
+                                                <i class="fa fa-envelope-o"></i>
+                                                Message
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Lover Lund</a></div>
+                                        <div class="options">
+                                            <button class="btn btn-xs btn-success">
+                                                <i class="fa fa-phone"></i>
+                                                Call
+                                            </button>
+                                            <button class="btn btn-xs btn-warning">
+                                                <i class="fa fa-envelope-o"></i>
+                                                Message
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="dropdown1">
+                            <h5 class="tab-header"><i class="fa fa-comments fa-2x"></i> Top Commenters</h5>
+                            <ul class="news-list">
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Edin Garey</a></div>
+                                        <div class="comment">
+                                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
+                                            aut odit aut fugit,sed quia
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Firel Lund</a></div>
+                                        <div class="comment">
+                                            Duis aute irure dolor in reprehenderit in voluptate velit
+                                             esse cillum dolore eu fugiat.
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Jessica Desingter</a></div>
+                                        <div class="comment">
+                                            Excepteur sint occaecat cupidatat non proident, sunt in
+                                             culpa qui officia deserunt.
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Novel Forel</a></div>
+                                        <div class="comment">
+                                            Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque.
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user fa-4x pull-left"></i>
+                                    <div class="news-item-info">
+                                        <div class="name"><a href="#">Wedol Reier</a></div>
+                                        <div class="comment">
+                                            Laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis
+                                            et quasi.
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+			
+			<div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Weather @ Work Place</h3>
+                        </div>
+                        <div class="panel-body">
+                            <!--div id="shieldui-grid1"></div-->
+							<div class="well weather" id="workWeather"></div>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-lg-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Weather @ Home City</h3>
+                        </div>
+                        <div class="panel-body">
+							<div class="well weather" id="homeWeather"></div>
+                        </div>
+                    </div>
+                </div>	
+				
+				</div>
+				<div class="row">
+				 <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Traffic</h3>
+                        </div>
+                        <div class="panel-body" style=" background-color:#fff; height:100%; width:100%;">
+						<!--div id="control">
+						  <strong>Home:</strong>
+						  <select id="start" onchange="calcRoute();">
+							<option value="san jose, ca">San Jose, CA</option>
+						  </select>
+						  <strong>Work:</strong>
+						  <select id="end" onchange="calcRoute();">
+							<option value="san jose, ca">San Jose</option>
+							<option value="san francisco, ca">San Francisco, CA</option>
+						  </select>
+						</div-->
+						<div class="col-lg-8" id="map-canvas" style="width:700px; height:400px"></div>
+						<div class="col-lg-4" id="directions-panel"></div>
+						</div><!--panel-body-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+    <script type="text/javascript">
+        jQuery(function ($) {
+            var performance = [12, 43, 34, 22, 12, 33, 4, 17, 22, 34, 54, 67],
+                visits = [123, 323, 443, 32],
+                traffic = [
+                {
+                    Source: "Direct", Amount: 323, Change: 53, Percent: 23, Target: 600
+                },
+                {
+                    Source: "Refer", Amount: 345, Change: 34, Percent: 45, Target: 567
+                },
+                {
+                    Source: "Social", Amount: 567, Change: 67, Percent: 23, Target: 456
+                },
+                {
+                    Source: "Search", Amount: 234, Change: 23, Percent: 56, Target: 890
+                },
+                {
+                    Source: "Internal", Amount: 111, Change: 78, Percent: 12, Target: 345
+                }];
+
+
+            $("#shieldui-chart1").shieldChart({
+                theme: "dark",
+
+                primaryHeader: {
+                    text: "Visitors"
+                },
+                exportOptions: {
+                    image: false,
+                    print: false
+                },
+                dataSeries: [{
+                    seriesType: "area",
+                    collectionAlias: "Q Data",
+                    data: performance
+                }]
+            });
+
+            $("#shieldui-chart2").shieldChart({
+                theme: "dark",
+                primaryHeader: {
+                    text: "Traffic Per week"
+                },
+                exportOptions: {
+                    image: false,
+                    print: false
+                },
+                dataSeries: [{
+                    seriesType: "pie",
+                    collectionAlias: "traffic",
+                    data: visits
+                }]
+            });
+
+            $("#shieldui-grid1").shieldGrid({
+                dataSource: {
+                    data: traffic
+                },
+                sorting: {
+                    multiple: true
+                },
+                rowHover: false,
+                paging: false,
+                columns: [
+                { field: "Source", width: "170px", title: "Source" },
+                { field: "Amount", title: "Amount" },                
+                { field: "Percent", title: "Percent", format: "{0} %" },
+                { field: "Target", title: "Target" },
+                ]
+            });            
+        });        
+    </script>
+
+
+<script>
+/*
+var indoorTemp = [];
+var outdoorTemp = [];   
+var fridgeTemp = [];
+var timeStamp = [];
+
+var startQuery = setInterval(updateData, 5000);
+
+
+function updateData(){
+    $.ajax({ //indoor
+        url: 'http://Default-Environment-qnbzq3unpn.elasticbeanstalk.com/1/getTemp', 
+        dataType: 'jsonp',
+        success: function(result){
+            //alert(JSON.stringify(result));
+            indoorTemp.push(result.temperature);
+            //alert(indoorTemp);
+            }
+        });
+    $.ajax({ //fridge
+        url: 'http://Default-Environment-qnbzq3unpn.elasticbeanstalk.com/2/getTemp', 
+        dataType: 'jsonp',
+        success: function(result){
+           // alert(JSON.stringify(result));
+            fridgeTemp.push(result.temperature);
+            //alert(fridgeTemp);
+            }
+        });
+    $.ajax({ //outdoor
+        url: 'http://Default-Environment-qnbzq3unpn.elasticbeanstalk.com/3/getTemp', 
+        dataType: 'jsonp',
+        success: function(result){
+           // alert(JSON.stringify(result));
+            outdoorTemp.push(result.temperature);
+            //alert(outdoorTemp);
+        
+            }
+        });
+    
+    
+    timeStamp.push(createTimeStamp());
+    replot();
+}
+function createTimeStamp(){
+    var time = new Date();
+    var hh = time.getHours();
+    var mm = time.getMinutes();
+    var ss = time.getSeconds();
+    var stamp = hh +":" + mm + ":" + ss;
+    return stamp;
+}
+
+function replot(){
+    $(function () {
+    $('#container').highcharts({
+        title: {
+            text: 'Realtime Sensor Temperature',
+            x: -20 //center
+        },
+        subtitle: {
+            text: 'Source: NodeJS REST from AWS BeanStalk',
+            x: -20
+        },
+        xAxis: {
+            categories: timeStamp
+        },
+        yAxis: {
+            title: {
+                text: 'Temperature (°F)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '°F'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Indoor Sensor',
+            data: indoorTemp
+        }, {
+            name: 'Refridgerator',
+            data: fridgeTemp
+        }, {
+            name: 'Outdoor Sensor',
+            data: outdoorTemp
+        }]
+    });
+});
+    
+}   
+    
+function stopQuery(){
+        clearInterval(startQuery);
+      //  alert('stop called');
+}
+
+function start(){
+        setInterval(updateData, 5000);
+
+        document.getElementById("stop").addEventListener("click", stopQuery);
+}
+
+*/
+
+		
+	
+function stopQuery(){
+		clearInterval(startQuery);
+	
+}
+
+$(function () {
+    $(document).ready(function () {
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+
+        $('#container1').highcharts({
+            chart: {
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                events: {
+                    load: function () {
+
+                        // set up the updating of the chart each second
+                        var series0 = this.series[0];
+						var series1 = this.series[1];
+						var series2 = this.series[2];
+                       var startQuery = setInterval(function () {
+                            var x = (new Date()).getTime();//, // current time
+                               // y = Math.random();
+								$.ajax({ //indoor
+											url: 'http://Default-Environment-qnbzq3unpn.elasticbeanstalk.com/1/getTemp', 
+											dataType: 'jsonp',
+											success: function(result){
+												//alert(JSON.stringify(result));
+												//indoorTemp.push(result.temperature);
+												//alert(indoorTemp);
+												var y = result.temperature;
+												series0.addPoint([x, y], true, true);
+												}
+											});
+								$.ajax({ //fridge
+										url: 'http://Default-Environment-qnbzq3unpn.elasticbeanstalk.com/2/getTemp', 
+										dataType: 'jsonp',
+										success: function(result){
+										   // alert(JSON.stringify(result));
+											//fridgeTemp.push(result.temperature);
+											//alert(fridgeTemp);
+											var y = result.temperature;
+												series1.addPoint([x, y], true, true);
+											}
+										});
+								$.ajax({ //outdoor
+										url: 'http://Default-Environment-qnbzq3unpn.elasticbeanstalk.com/3/getTemp', 
+										dataType: 'jsonp',
+										success: function(result){
+										   // alert(JSON.stringify(result));
+											//outdoorTemp.push(result.temperature);
+											//alert(outdoorTemp);
+											var y = result.temperature;
+												series2.addPoint([x, y], true, true);
+										
+											}
+									});
+							//series.addPoint([x, y], true, true);
+                        }, 5000);
+                    }
+                }
+            },
+            title: {
+                text: 'Realtime Sensor Temperature'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: 'Temperature (°F)'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            series: [{
+                name: 'Indoor Sensor',
+                data: (function () {
+                    // generate an array of random data
+                    var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+
+                    for (i = -19; i <= 0; i += 1) {
+                        data.push({
+                            x: time + i * 1000,
+                            y: Math.random()
+                        });
+                    }
+			   return data;
+                }()) 
+            },{
+                name: 'Refridgerator',
+                data: (function () {
+                    // generate an array of random data
+                    var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+
+                    for (i = -19; i <= 0; i += 1) {
+                        data.push({
+                            x: time + i * 1000,
+                            y: Math.random()
+                        });
+                    }
+			   return data;
+                }()) 
+            },{
+                name: 'Outdoor Sensor',
+                data: (function () {
+                    // generate an array of random data
+                    var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+
+                    for (i = -19; i <= 0; i += 1) {
+                        data.push({
+                            x: time + i * 1000,
+                            y: Math.random()
+                        });
+                    }
+			   return data;
+                }()) 
+            }]
+        });
+    });
+});
+
+
+</script>
+
+
+</body>
+</html>
