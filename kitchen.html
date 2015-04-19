@@ -25,6 +25,9 @@
 	<script src="bootstrap-switch/js/bootstrap-switch.min.js"></script>
 		
       <style>
+		h4{
+			text-align:center;
+		}
 		textarea{
 			color:black;
 		}
@@ -185,26 +188,34 @@
 										</div>
 								</div-->
 								<div class="form-group">
-										<label for="company" class="col-sm-6 control-label">Milk Level:</label>
-										<div class="col-sm-6">
+									<div class="well col-md-12"><h4>Milk Section</h4>
+										<label for="company" class="col-sm-4 control-label">Milk Expiry Date:</label>
+										<div class="col-sm-8">
 											<div class="progress">
-															<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-															<span class="sr-only">70% Complete</span>
-														</div>
-										<!--label for="company" class="col-sm-6 control-label">TBD</label-->
+												<div class="progress-bar progress-bar-warning" role="progressbar" id="milkBar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="21" style="">
+												</div></div>
 										</div>
+										<label for="company" class="col-sm-4 control-label">Milk Quantity:</label>
+										<div class="col-sm-8">
+											<div class="progress">
+												<div class="progress-bar" role="progressbar" id="milkQty" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="">
+												</div></div>
+										</div>
+									</div>
 								</div>
 								<div class="form-group">
+										<div class="well col-md-12"><h4>Produce Section</h4>
+									<!--/div>
 										<label for="company" class="col-sm-2 control-label">Food Freshness:</label>
-										<div class="col-sm-10">
+										<div class="col-sm-12"-->
 											<table class="table table striped">
 												<tr><td>Items</td>
-													<td>Freshness Meter</td>
+													<td>Quantities</td>
 													<td>Expiry Meter</td>
 												</tr>
 												<tr>
 													<td>Produce</td>
-													<td><textarea id="produce" disabled></textarea></td>
+													<td><textarea id="produce" rows="1" disabled></textarea></td>
 													<td>
 														<div class="progress">
 															<div class="progress-bar progress-bar-warning"  id="produceBar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="21" style="">1 day
@@ -213,7 +224,7 @@
 												</tr>
 												<tr>
 													<td>Eggs</td>
-													<td><textarea id="eggs" disabled></textarea></td>
+													<td><textarea id="eggs" rows="1" disabled></textarea></td>
 													<td>
 														<div class="progress">
 															<div class="progress-bar progress-bar-warning"  id="eggsBar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="15" style="">1 day
@@ -222,7 +233,7 @@
 												</tr>
 												<tr>
 													<td>Meat</td>
-													<td><textarea id="meat" disabled></textarea></td>
+													<td><textarea id="meat" rows="1" disabled ></textarea></td>
 													<td>
 														<div class="progress">
 															<div class="progress-bar progress-bar-warning"  id="meatBar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="7" style="">1 day
@@ -243,10 +254,62 @@
 </body>
 <script>
 	$(".machine").bootstrapSwitch();
-	// Fridge Section 
-		var produceFreshness = Math.floor(Math.random() * 17);
-		var eggsFreshness = Math.floor(Math.random() * 23);
-		var meatFreshness = Math.floor(Math.random() * 9);
+	/* Fridge Section */
+	
+	/* MILK Section */
+	
+		var milkFreshness = Math.floor(Math.random() * 16);
+		var milkLife = 15;
+		var milkExpiry = exp(milkFreshness, milkLife);
+	
+		var milkQty = Math.floor(Math.random() * 101);
+		
+	/* end MILK Section */
+	
+	
+	<!----- PRODUCE QUANTITY ---->
+	
+		//Produce
+		var produceQty = Math.floor(Math.random() * 101);
+		if(produceQty == 0){
+			produceQtyMsg = "Out of fresh Produce! Stock Up!";
+		} else if(produceQty == 100){
+			produceQtyMsg = "Produce Section full!";
+		} else{
+			produceQtyMsg = produceQty + "% of fresh produce left";
+		}
+		document.getElementById("produce").value = produceQtyMsg;
+		
+		//Eggs
+		var eggsQty = Math.floor(Math.random() * 13);
+		if(eggsQty == 0){
+			eggsQtyMsg = "No eggs left! Stock up!"; 
+		}else if(eggsQty == 1){
+			eggsQtyMsg = "only " + eggsQty + " egg left"; 
+		} else if(eggsQty == 12){
+			eggsQtyMsg = "Full Stock"; 
+		}else{
+			eggsQtyMsg = eggsQty + " eggs left"; 
+		}
+		document.getElementById("eggs").value = eggsQtyMsg;
+		
+		//Meat
+		var meatQty = Math.floor(Math.random() * 3);
+		if(meatQty > 0){
+			var meat = ["Fish","Chicken","Beef"];
+			var meatVariety = meat[Math.floor(Math.random() * meat.length)];
+			var meatQtyMsg = meatQty + " servings of " + meatVariety + " left"; 
+		}else{ meatQtyMsg = "Stock up! No more meat!";
+		}
+		document.getElementById("meat").value = meatQtyMsg;
+		console.log("eggs: "+eggsQty);
+		
+	<!----- end  QUANTITY ---->
+	
+	<!------ EXPIRY ------>
+		var produceFreshness = Math.floor(Math.random() * 16);
+		var eggsFreshness = Math.floor(Math.random() * 22);
+		var meatFreshness = Math.floor(Math.random() * 8);
 		console.log(produceFreshness);
 		
 		var produceLife = 15;
@@ -270,18 +333,58 @@
 			return send;
 		}
 		
-		$(document).ready(function() {
+		<!------ end EXPIRY ------>
 		
+		$(document).ready(function() {
+		<!----- MILK ------>
+		var milkId = "#milkQty";
+		console.log("the milk qty is: "+ milkQty);
+		var full = milkQty + 100;
+		if(milkQty == 100){
+			$(milkId).addClass("progress-bar-success");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text("Full");
+		}else if(milkQty == 0){
+			$(milkId).addClass("progress-bar-danger");
+			$(milkId).css("width", full + "%");
+			$(milkId).attr("aria-valuenow", full + "%");
+			$(milkId).text("Empty!");
+		} else if(milkQty > 70 && milkQty < 100){
+			$(milkId).addClass("progress-bar-success");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text(milkQty + " %");
+		} else if(milkQty > 40 && milkQty < 70){
+			$(milkId).addClass("");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text(milkQty + " %");
+		} else{
+			$(milkId).addClass("progress-bar-warning");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text(milkQty + " %");
+		}
+			
+		<!----- end MILK ------>
+		
+		<!----- PRODUCE ------>
 		var produceId = "#produceBar";
 		test(produceLife, produceExpiry, produceId);
 		var eggsId = "#eggsBar";
 		test(eggsLife, eggsExpiry, eggsId);
 		var meatId = "#meatBar";
 		test(meatLife, meatExpiry, meatId);
+		var milkId = "#milkBar";
+		test(milkLife, milkExpiry, milkId);
 			
 		function test(shelfLife, expiryDay, progId){
 			var pct_left = (expiryDay/shelfLife) * 100;
 			var fullWidth = 100
+			if(shelfLife > 7){
+			var week = 7;
+			} else{ week = 0;}
 			if (expiryDay == 0) {
 				$(progId).removeClass("progress-bar-warning");
 				$(progId).addClass("progress-bar-success");
@@ -296,15 +399,16 @@
 				$(progId).css("width", fullWidth + "%");
 				$(progId).attr("aria-valuenow", fullWidth + "%");
 			} else if (expiryDay == shelfLife) {	
-				$(progId).text("Expired Today!");
+				$(progId).text("Expires Today!");
 				$(progId).css("width", fullWidth + "%");
 				$(progId).attr("aria-valuenow", fullWidth + "%");
-			} else{
+			} else{	
 				$(progId).text(" " + expiryDay + " days left");
 				$(progId).css("width", pct_left + "%");
 				$(progId).attr("aria-valuenow", pct_left + "%");
-			}
+			} 
 		}
         });
+		<!----- end PRODUCE ------>
 </script>
 </html>
