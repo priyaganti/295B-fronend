@@ -25,6 +25,12 @@
 	<script src="bootstrap-switch/js/bootstrap-switch.min.js"></script>
 		
       <style>
+		textarea{
+			color:black;
+		}
+		.progress{
+			background:#fff;
+		}
         .padBottom {
             padding-bottom:20px;
         }
@@ -157,7 +163,7 @@
                 </div>
             </div><!-- row -->
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-offset-2 col-md-8 col-md-offset-2">
 					<div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">Refrigerator</h3>
@@ -166,7 +172,7 @@
 								<div class="form-group">
 									<img src="assets/img/fridge.png" width="200" height="150"></img>
 								</div>
-								<div class="form-group">
+								<!--div class="form-group">
 										<label for="company" class="col-sm-6 control-label">Power:</label>
 										<div class="col-sm-6">
 										<input type="checkbox" name="my-checkbox" class="machine" id="coffee" data-off-color="danger" data-on-color="success" disabled />
@@ -177,17 +183,54 @@
 										<div class="col-sm-6">
 										<label for="company" class="col-sm-6 control-label">TBD</label>
 										</div>
-								</div>
+								</div-->
 								<div class="form-group">
 										<label for="company" class="col-sm-6 control-label">Milk Level:</label>
 										<div class="col-sm-6">
-										<label for="company" class="col-sm-6 control-label">TBD</label>
+											<div class="progress">
+															<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+															<span class="sr-only">70% Complete</span>
+														</div>
+										<!--label for="company" class="col-sm-6 control-label">TBD</label-->
 										</div>
 								</div>
 								<div class="form-group">
-										<label for="company" class="col-sm-6 control-label">Food Freshness:</label>
-										<div class="col-sm-6">
-										<label for="company" class="col-sm-6 control-label">TBD</label>
+										<label for="company" class="col-sm-2 control-label">Food Freshness:</label>
+										<div class="col-sm-10">
+											<table class="table table striped">
+												<tr><td>Items</td>
+													<td>Freshness Meter</td>
+													<td>Expiry Meter</td>
+												</tr>
+												<tr>
+													<td>Produce</td>
+													<td><textarea id="produce" disabled></textarea></td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar progress-bar-warning"  id="produceBar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="21" style="">1 day
+														</div></div>
+													</td>
+												</tr>
+												<tr>
+													<td>Eggs</td>
+													<td><textarea id="eggs" disabled></textarea></td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar progress-bar-warning"  id="eggsBar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="15" style="">1 day
+														</div></div>
+													</td>
+												</tr>
+												<tr>
+													<td>Meat</td>
+													<td><textarea id="meat" disabled></textarea></td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar progress-bar-warning"  id="meatBar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="7" style="">1 day
+														</div></div>
+													</td>
+												</tr>
+											</table>
+										<!--label for="company" class="col-sm-6 control-label">TBD</label-->
 										</div>
 								</div>
                         </div><!-- body-->
@@ -200,5 +243,68 @@
 </body>
 <script>
 	$(".machine").bootstrapSwitch();
+	// Fridge Section 
+		var produceFreshness = Math.floor(Math.random() * 17);
+		var eggsFreshness = Math.floor(Math.random() * 23);
+		var meatFreshness = Math.floor(Math.random() * 9);
+		console.log(produceFreshness);
+		
+		var produceLife = 15;
+		var eggsLife = 21;
+		var meatLife = 7;
+
+		var produceExpiry = exp(produceFreshness, produceLife);
+		var eggsExpiry = exp(eggsFreshness, eggsLife);
+		var meatExpiry = exp(meatFreshness, meatLife);
+		
+		function exp(currentFreshness, shelfLife){
+			if(currentFreshness == 0){
+				var send = 0;
+			} else if(currentFreshness < shelfLife){
+				send = shelfLife - currentFreshness;
+			} else if(currentFreshness == shelfLife+1){
+				send = shelfLife+1;
+			} else{
+				send = shelfLife;
+			}
+			return send;
+		}
+		
+		$(document).ready(function() {
+		
+		var produceId = "#produceBar";
+		test(produceLife, produceExpiry, produceId);
+		var eggsId = "#eggsBar";
+		test(eggsLife, eggsExpiry, eggsId);
+		var meatId = "#meatBar";
+		test(meatLife, meatExpiry, meatId);
+			
+		function test(shelfLife, expiryDay, progId){
+			var pct_left = (expiryDay/shelfLife) * 100;
+			var fullWidth = 100
+			if (expiryDay == 0) {
+				$(progId).removeClass("progress-bar-warning");
+				$(progId).addClass("progress-bar-success");
+				$(progId).text("Super Fresh");
+				$(progId).css("width", fullWidth + "%");
+				$(progId).attr("aria-valuenow", fullWidth + "%");
+				
+			} else if (expiryDay == shelfLife + 1) {
+				$(progId).removeClass("progress-bar-warning");
+				$(progId).addClass("progress-bar-danger");	
+				$(progId).text("Expired");
+				$(progId).css("width", fullWidth + "%");
+				$(progId).attr("aria-valuenow", fullWidth + "%");
+			} else if (expiryDay == shelfLife) {	
+				$(progId).text("Expired Today!");
+				$(progId).css("width", fullWidth + "%");
+				$(progId).attr("aria-valuenow", fullWidth + "%");
+			} else{
+				$(progId).text(" " + expiryDay + " days left");
+				$(progId).css("width", pct_left + "%");
+				$(progId).attr("aria-valuenow", pct_left + "%");
+			}
+		}
+        });
 </script>
 </html>

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://responsivevoice.org/responsivevoice/responsivevoice.js"></script>
+ 
+<textarea id="text" cols="45" rows="3">Hello world</textarea>
+  
+<input 
+  onclick="responsiveVoice.speak($('#text').val(),'US English Female');" 
+  type="button" 
+  value="Play" 
+/>
+ 
+</head>
+<body>
+</body>
+</html>

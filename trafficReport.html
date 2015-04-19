@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://responsivevoice.org/responsivevoice/responsivevoice.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<!--div width="200" height="200" id="city"></div-->
+	<div width="200" height="200" id="food">
+	<label>Fresh Produce:</label><textarea id="produce" disabled></textarea><br/>
+	<label>Eggs:</label><textarea id="eggs" disabled ></textarea><br/>
+	<label>Meat:</label><textarea id="meat" disabled></textarea><br/>
+	<label>Meat1:</label><textarea id="meat1" disabled></textarea><br/>
+	</div><br/>
+	<div class="col-sm-4">
+	<label>Test:</label>
+	<div class="progress">
+		<div class="progress-bar progress-bar-warning" role="progressbar" id="test" aria-valuenow="0" aria-valuemin="0" aria-valuemax="3" style="">1 day
+	</div></div></div><br/>
+	<textarea id="text" cols="45" rows="3"></textarea>
+	<input 
+  onclick="responsiveVoice.speak($('#text').val(),'US English Female');" 
+  type="button" 
+  value="Play" 
+/>
+</body>
+<script>
+		var cities = ["San Jose Downtown", "Santa Clara", "Sunnyvale", "Mountain View", "Palo Alto", "Redwood City", "San Carlos", "Belmont", "San Mateo", "Burlingame", "Milbrae", "San Bruno", "Airport", "South San Francisco", "Brisbane", "Bernal Heights", "Mission District", "San Francisco Downtown"];
+		var incident = ["Construction", "Accident", "Road Closure"];
+		var randCity = cities[Math.floor(Math.random() * cities.length)];
+		var randIncident = incident[Math.floor(Math.random() * incident.length)];
+		var randMins = Math.floor((Math.random() * 21) + 10);
+		console.log(randCity + " " + randIncident + " " + randMins + " mins");
+		var msg = randIncident + " near " + randCity + " Please leave in " + randMins + " minutes";
+		document.getElementById("text").value = msg;
+		// Fridge Section 
+		var produceFreshness = Math.floor(Math.random() * 5);
+		var eggsFreshness = Math.floor(Math.random() * 9);
+		var meatFreshness = Math.floor(Math.random() * 5);
+		console.log(produceFreshness);
+		var meatLife = 3;
+		var eggsLife = 7;
+		var produceLife = 3;
+		
+		/*
+		var produceMsg1 = freshnessMeter(produceFreshness);
+		var eggsMsg1 = freshnessMeter(eggsFreshness);
+		var meatMsg1 = freshnessMeter(meatFreshness);
+		
+		console.log(meatMsg1);
+		function freshnessMeter(currentFreshness){
+			var fmsg = "";
+			switch(currentFreshness){
+				case 0 : 
+				fmsg = "fresh";
+				break;
+				case 1:
+				fmsg = "1 day old";
+				break;
+				case 2:
+				fmsg = "2 days old";
+				break;
+				case 3: 
+				fmsg = "3 days old";
+				break;
+			}
+			return fmsg;
+		} */
+
+		//calling a function 
+		var produceMsg = expiryMeter(produceFreshness, produceLife);
+		var eggsMsg = expiryMeter(eggsFreshness, eggsLife);
+		var meatMsg = expiryMeter(meatFreshness, meatLife);
+		
+		function expiryMeter(currentFreshness, shelfLife){
+			if(currentFreshness == 0){
+				var freshMsg = "Very Fresh";
+			}
+			else if(currentFreshness < shelfLife){
+				var fresh = shelfLife - currentFreshness;
+				freshMsg = "Your produce expires in " + fresh + " days";
+			} else if(currentFreshness < shelfLife){
+				 freshMsg = "Your produce expires today!";
+			}else{	
+				 freshMsg = "Your produce already Expired!";
+			}
+			return freshMsg;
+		}
+					
+		document.getElementById("produce").innerHTML = produceMsg;
+		document.getElementById("eggs").innerHTML = eggsMsg;
+		document.getElementById("meat").innerHTML = meatMsg; 
+		
+        $(document).ready(function() {
+			if(produceFreshness == 0){
+				$('#test').removeClass("progress-bar-warning");
+				$('#test').addClass("progress-bar-success");
+				$('#test').text("Super Fresh");
+				$("#test").css("width", "100%");
+				$("#test").attr("aria-valuenow", "100%");
+			} else if(produceFreshness == 1){
+				$('#test').text(" 1 day left");
+				 $("#test").css("width", "33%");
+				$("#test").attr("aria-valuenow", "33%");
+			} else if(produceFreshness == 2){
+				$('#test').text(" 2 days left");
+				$("#test").css("width", "66%");
+				$("#test").attr("aria-valuenow", "66%");
+			} else if(produceFreshness == 3){
+				$('#test').text("Expires today");
+				$("#test").css("width", "100%");
+				$("#test").attr("aria-valuenow", "100%");
+			} else {
+				$('#test').removeClass("progress-bar-warning");
+				$('#test').addClass("progress-bar-danger");
+				$('#test').text("Expired");
+				$("#test").css("width", "100%");
+				$("#test").attr("aria-valuenow", "100%");
+			}
+        });
+		
+</script>
+</html>
