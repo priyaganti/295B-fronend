@@ -130,6 +130,18 @@
 										<label for="company" class="col-sm-6 control-label">TBD</label>
 										</div>
 								</div>
+								<div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Click to take Coffee:</label>
+										<div class="col-sm-6">
+										<button class="btn btn-success" id="coffeeCup"><i class="fa fa-coffee fa-lg"></i> Coffee</button>
+										</div>
+								</div>
+								<div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Meetings Message:</label>
+										<div class="col-sm-6">
+										<button class="btn btn-default" id="replayMsg">Replay</button>
+										</div>
+								</div>
                         </div><!-- body-->
                     </div>
                 </div>
@@ -253,7 +265,42 @@
 </div>
 </body>
 <script>
+
+	$( "#coffeeCup" ).click(function() {
+	// disable the button and then start reading...
+	 $("#coffeeCup").prop("disabled",true);
+	 textToSpeech();
+	});
+	$( "#replayMsg" ).click(function() {
+		textToSpeech();
+	});
+
 	$(".machine").bootstrapSwitch();
+	
+	function textToSpeech(){
+	
+		var text1 = "Good Morning!";
+		var text2 = "You have the following meetings today,one, meet professor and show the demo,two, lunch with teammates,and three, dinner with a Friend";
+		
+		console.log("came to speech");
+		var msg = new SpeechSynthesisUtterance();
+		var voices = window.speechSynthesis.getVoices();
+		msg.voice = voices[10]; // Note: some voices don't support altering params
+		msg.voiceURI = 'native';
+		msg.volume = 1; // 0 to 1
+		msg.rate = 1; // 0.1 to 10
+		msg.pitch = 2; //0 to 2
+		//msg.text = 'Hello World';
+		msg.text = text1 + text2;
+		msg.lang = 'en-US';
+
+		msg.onend = function(e) {
+		  console.log('Finished in ' + event.elapsedTime + ' seconds.');
+		};
+
+		speechSynthesis.speak(msg); 
+	}
+	
 	/* Fridge Section */
 	
 	/* MILK Section */
@@ -263,6 +310,7 @@
 		var milkExpiry = exp(milkFreshness, milkLife);
 	
 		var milkQty = Math.floor(Math.random() * 101);
+		
 		
 	/* end MILK Section */
 	
@@ -410,5 +458,22 @@
 		}
         });
 		<!----- end PRODUCE ------>
+		
+		/* storage */
+		
+		if(typeof(Storage) !== "undefined") {
+			sessionStorage.setItem('milkQuantity', milkQty);
+			sessionStorage.setItem('produceQuantity', produceQty);
+			sessionStorage.setItem('eggsQuantity', eggsQty);
+			sessionStorage.setItem('meatQuantity', meatQty);
+			var milk_qty = sessionStorage.getItem('milkQuantity');
+			var pro_qty = sessionStorage.getItem('produceQuantity');
+			var eggs_qty = sessionStorage.getItem('eggsQuantity');
+			var meat_qty = sessionStorage.getItem('meatQuantity');
+			console.log(" milk qty is: " + milk_qty , "produce is: ", pro_qty, "eggs: ", eggs_qty, "meat: ", meat_qty);
+		} else {
+			alert("Sorry! No Web Storage support..");
+		}
+		
 </script>
 </html>

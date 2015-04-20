@@ -20,8 +20,8 @@
 		<div class="progress-bar progress-bar-warning" role="progressbar" id="test" aria-valuenow="0" aria-valuemin="0" aria-valuemax="3" style="">1 day
 	</div></div></div><br/>
 	<textarea id="text" cols="45" rows="3"></textarea>
-	<input 
-  onclick="responsiveVoice.speak($('#text').val(),'US English Female');" 
+	<input
+  onClick="responsiveVoice.speak($('#text').val(),'US English Female');" 
   type="button" 
   value="Play" 
 />
@@ -121,5 +121,34 @@
 			}
         });
 		
+		/* var su = new SpeechSynthesisUtterance();
+		su.lang = "en";
+		var text1 = "Good Morning";
+		var text2 = "you have the following meeting today";
+		var text3 = "one meet professor and show the demo";
+		var text4 = "two lunch with teammates";
+		var text5 = "and finally dinner with Friend";
+		su.text = text1 + text2 + text3 + text4 + text5;
+		speechSynthesis.speak(su); */
+		
+		var text1 = "Good Morning!";
+		var text2 = "You have the following meetings today,one, meet professor and show the demo,two, lunch with teammates,and three, dinner with a Friend";
+		
+		var msg = new SpeechSynthesisUtterance();
+		var voices = window.speechSynthesis.getVoices();
+		msg.voice = voices[10]; // Note: some voices don't support altering params
+		msg.voiceURI = 'native';
+		msg.volume = 1; // 0 to 1
+		msg.rate = 1; // 0.1 to 10
+		msg.pitch = 2; //0 to 2
+		//msg.text = 'Hello World';
+		msg.text = text1 + text2;
+		msg.lang = 'en-US';
+
+		msg.onend = function(e) {
+		  console.log('Finished in ' + event.elapsedTime + ' seconds.');
+		};
+
+		speechSynthesis.speak(msg);
 </script>
 </html>
