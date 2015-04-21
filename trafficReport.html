@@ -45,6 +45,23 @@
 		var produceLife = 3;
 		
 		/*
+		var baseMilkQty = 100;
+		var stockDay = 0; // sunday is stocking day, so milk quantity will be 100
+		var randMilkQty = Math.floor(Math.random() * baseMilkQty+1);
+		for(var i = 0; i < 6 ; i++){
+			stockDay = stockDay + 1; // moving to Monday
+			var num = Math.floor(Math.random() * baseMilkQty+1);
+		} */
+		// say 80 - 100
+		var sunQty = 100;
+		var monQty = Math.floor((Math.random() * 21) + 80);
+		// range <=monQty say 70 - monQty
+		var tuQty =  Math.floor(Math.random() * (monQty+1));
+			console.log("monQty is: ", monQty);
+		console.log("tuQty is: ", tuQty);
+		//var wedQty = Math.floor((Math.random() * ((monQty - 70)+1)) + 70);
+				
+		/*
 		var produceMsg1 = freshnessMeter(produceFreshness);
 		var eggsMsg1 = freshnessMeter(eggsFreshness);
 		var meatMsg1 = freshnessMeter(meatFreshness);

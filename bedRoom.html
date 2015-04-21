@@ -50,11 +50,13 @@ var jsalarm={
 	},
 	showcurrenttime:function(){
 		var dateobj=new Date()
-		var ct=this.padfield(dateobj.getHours())+":"+this.padfield(dateobj.getMinutes())+":"+this.padfield(dateobj.getSeconds())
+		//var ct=this.padfield(dateobj.getHours())+":"+this.padfield(dateobj.getMinutes())+":"+this.padfield(dateobj.getSeconds())
+		var ct=this.padfield(dateobj.getHours())+":"+this.padfield(dateobj.getMinutes())
 		this.ctref.innerHTML=ct
 		this.ctref.setAttribute("title", ct)
 		if (typeof this.hourwake!="undefined"){ //if alarm is set
-			if (this.ctref.title==(this.hourwake+":"+this.minutewake+":"+this.secondwake)){
+			//if (this.ctref.title==(this.hourwake+":"+this.minutewake+":"+this.secondwake)){
+			if (this.ctref.title==(this.hourwake+":"+this.minutewake)){
 				clearInterval(jsalarm.timer)
 				/* window.location=document.getElementById("musicloc").value
 				var snd = new Audio("Buzz.wav");
@@ -79,10 +81,12 @@ var jsalarm={
 		}
 	},
 	init:function(){
+		console.log("inside init");
 		var dateobj=new Date()
 		this.ctref=document.getElementById("jsalarm_ct")
 		this.submitref=document.getElementById("submitbutton")
 		this.submitref.onclick=function(){
+			console.log("went to Set Alarm");
 			jsalarm.setalarm()
 			this.value="Alarm Set"
 			alarmClock.status = "ON";
@@ -91,34 +95,36 @@ var jsalarm={
 		}
 		this.resetref=document.getElementById("resetbutton")
 		this.resetref.onclick=function(){
-		jsalarm.submitref.disabled=false
-		jsalarm.hourwake=undefined
-		jsalarm.hourselect.disabled=false
-		jsalarm.minuteselect.disabled=false
-		jsalarm.secondselect.disabled=false
-		resetAll();
-		return false
+			jsalarm.submitref.disabled=false
+			 location.reload();
+			jsalarm.hourwake=undefined
+			jsalarm.hourselect.disabled=false
+			jsalarm.minuteselect.disabled=false
+			//jsalarm.secondselect.disabled=false
+			//resetAll();
+			return false
 		}
 		var selections=document.getElementsByTagName("select")
 		this.hourselect=selections[0]
 		this.minuteselect=selections[1]
-		this.secondselect=selections[2]
+		//this.secondselect=selections[2]
 		for (var i=0; i<60; i++){
 			if (i<24) {//If still within range of hours field: 0-23
 			this.hourselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getHours()==i)}
 			this.minuteselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getMinutes()==i)
-			this.secondselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getSeconds()==i)
+			//this.secondselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getSeconds()==i)
 		} 
 		jsalarm.showcurrenttime()
 		jsalarm.timer=setInterval(function(){jsalarm.showcurrenttime()}, 1000)
 	},
 	setalarm:function(){
+		console.log("inside set Alram");
 		this.hourwake=this.hourselect.options[this.hourselect.selectedIndex].value
 		this.minutewake=this.minuteselect.options[this.minuteselect.selectedIndex].value
-		this.secondwake=this.secondselect.options[this.secondselect.selectedIndex].value
+		//this.secondwake=this.secondselect.options[this.secondselect.selectedIndex].value
 		this.hourselect.disabled=true
 		this.minuteselect.disabled=true
-		this.secondselect.disabled=true
+		//this.secondselect.disabled=true
 	}
 }
 	</script>
@@ -165,8 +171,8 @@ var jsalarm={
 		
 		<h2 style="text-align:center;">Bedroom</h2>
 		<ul class="pager">
-			<li class="previous"><a href="#">Previous</a></li>
-			<li class="next"><a href="#">Next</a></li>
+			<li class="previous"><a href="index.html">Previous</a></li>
+			<li class="next"><a href="livingRoom.html">Next</a></li>
 		</ul>	
 	<div class="well col-sm-offset-1 col-sm-10 col-sm-offset-1 ">
 	<h4>Alaram Clock</h4>
@@ -183,7 +189,7 @@ var jsalarm={
 		
 		<div id="jsalarmclock" style="text-align:center;" class="padBottom">
 <div><input type="hidden" id="jsalarm_ct" style="letter-spacing: 2px"></input></div>
-<div>Set Alarm:<span><select></select> Hour</span> <span><select></select> Minutes</span> <span><select></select> Seconds</span></div><br/><br/>
+<div>Set Alarm:<span><select></select> Hour</span> <span><select></select> Minutes</span> <!--span><select></select> Seconds</span--></div><br/><br/>
 <button class="btn btn-primary" type="submit" id="submitbutton">Set Alarm</button> <button class="btn btn-success" type="submit" id="autoSet">Auto</button> <button class="btn btn-default" type="reset" id="resetbutton">Reset</button>
 </div>
 <div id="myModal" class="modal fade">

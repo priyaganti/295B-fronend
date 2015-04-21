@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -384,6 +383,7 @@
 		<!------ end EXPIRY ------>
 		
 		$(document).ready(function() {
+		
 		<!----- MILK ------>
 		var milkId = "#milkQty";
 		console.log("the milk qty is: "+ milkQty);
@@ -474,6 +474,80 @@
 		} else {
 			alert("Sorry! No Web Storage support..");
 		}
+		
+		var meetings = [];
+		// Get Events from the API
+		if(typeof(Storage) !== "undefined") {
+		 var val = localStorage.getItem('meetArray');
+		 if(val){
+			console.log("nothing");
+			var value = JSON.parse(val);
+			 var value = JSON.parse(localStorage["meetArray"]);
+			//console.log("value is: ",value); 
+			for(var i=0; i<val.length; i++){
+				console.log("msg is:",val[i].msg);
+			} 
+		 }
+		}else{
+			alert("Sorry! No Web Storage support..");
+		}
+		
+	
+		
+		/* var gapiURL="http://192.168.1.11:8000/test.html";
+
+		$.ajax({
+			url: gapiURL,
+			type: 'GET',
+			success: function (resp) {
+				console.log("the ajax call resp is: " + resp);
+			},
+			error: function(e) {
+				console.log('Error: '+e);
+			}  
+		}); 
+			
+		//CORS code//
+		
+		var xmlhttp;
+		var myUrl = "http://localhost:8000/test.html";
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		xmlhttp.onreadystatechange=function()
+		  {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				console.log("response is: ", xmlhttp.responseText);
+			//document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+			}
+		  }
+		xmlhttp.open("GET",myUrl,true);
+		xmlhttp.send();
+		
+		*/
+		
+			
+		// Ajax call to the google Api html page
+		
+	/*	var gapiURL="http://localhost:8000/test.html";
+
+		$.ajax({
+			url: gapiURL,
+			type: 'GET',
+			success: function (resp) {
+				console.log("the ajax call resp is: " + resp);
+			},
+			error: function(e) {
+				console.log('Error: '+e);
+			}  
+		}); */				
+		
 		
 </script>
 </html>

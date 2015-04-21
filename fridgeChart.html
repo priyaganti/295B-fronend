@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+</head>
+<body>
+	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</body>
+<script>
+	$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Groceries Quantity over a week'
+        },
+        subtitle: {
+            text: 'Source: WorldClimate.com'
+        },
+        xAxis: {
+            categories: [
+                'Mon',
+                'Tue',
+                'Wed',
+                'Thu',
+                'Fri',
+                'Sat',
+                'Sun'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Quantity (%)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Milk',
+            data: [40, 50, 100, 67, 88, 79, 20]
+
+        }, {
+            name: 'Produce',
+            data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0]
+
+        }, {
+            name: 'Egss',
+            data: [12, 7, 9, 10, 6, 8, 11]
+
+        }, {
+            name: 'Meat',
+            data: [50, 100, 0, 100, 50, 0, 100]
+
+        }]
+    });
+});
+</script>
+</html>
+
