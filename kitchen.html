@@ -91,6 +91,8 @@
 		<!-- Adding Priyanka's code -->
 		
 		<h2 style="text-align:center;">Kitchen</h2>
+		<button class="btn btn-warning" id="simulate">Start Simulation</button>
+		<button class="btn btn-success" id="nextDay">Next Day</button>
 		<ul class="pager">
 			<li class="previous"><a href="bedRoom.html">Previous</a></li>
 			<li class="next"><a href="livingRoom.html">Next</a></li>
@@ -306,11 +308,54 @@
 	
 		var milkFreshness = Math.floor(Math.random() * 16);
 		var milkLife = 15;
-		var milkExpiry = exp(milkFreshness, milkLife);
+		var milkExpiry = exp(milkFreshness, milkLife); 
 	
-		var milkQty = Math.floor(Math.random() * 101);
+		//var milkQty = Math.floor(Math.random() * 101); 
 		
-		
+	//if (milkFreshness not in localStorage or milkQty < 1):	
+	var q = 0;
+	var milkQty;
+	var reduce = 20;
+	var milkId = "#milkQty"; // id for the progress bar
+	$( "#simulate" ).click(function() {
+		//console.log("inside simulate");
+		localStorage.clear();
+		q = localStorage.getItem('milkQuantity');
+		console.log("milk from storage is: ",q);
+		// if no value is stored in localStorage, then initialize with any value 0-100
+		if(!q){
+			milkQty = Math.floor(Math.random() * 101); 
+			console.log("Now initializing to: ", milkQty);
+			localStorage.setItem('milkQuantity', milkQty);
+			displayMilkQty(milkQty, milkId);
+		}
+	});
+	
+	function alerting(){
+		alert("you have very less milk.. stocking up now!");
+		milkQty = Math.floor(Math.random() * 101); 
+		localStorage.setItem('milkQuantity', milkQty);
+		displayMilkQty(milkQty, milkId);
+	}
+	
+	$( "#nextDay" ).click(function() {
+			 q = localStorage.getItem('milkQuantity');
+			if( q < 10){
+				alerting();
+			} else{
+			 console.log("nextDay value from storage is: ",q);
+				milkQty = q - reduce;
+				if(milkQty < 10)
+				{	
+					alerting();
+				}
+				localStorage.setItem('milkQuantity',milkQty);
+			 console.log("current day qty ", milkQty);
+			 displayMilkQty(milkQty, milkId); 
+			}
+			 
+	});
+	
 	/* end MILK Section */
 	
 	
@@ -382,11 +427,8 @@
 		
 		<!------ end EXPIRY ------>
 		
-		$(document).ready(function() {
-		
-		<!----- MILK ------>
-		var milkId = "#milkQty";
-		console.log("the milk qty is: "+ milkQty);
+			<!----- MILK ------>
+	function displayMilkQty(milkQty, milkId){
 		var full = milkQty + 100;
 		if(milkQty == 100){
 			$(milkId).addClass("progress-bar-success");
@@ -414,8 +456,10 @@
 			$(milkId).attr("aria-valuenow", milkQty + "%");
 			$(milkId).text(milkQty + " %");
 		}
-			
+	} // closing function
 		<!----- end MILK ------>
+		
+		$(document).ready(function() {
 		
 		<!----- PRODUCE ------>
 		var produceId = "#produceBar";
