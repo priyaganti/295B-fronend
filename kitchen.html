@@ -104,7 +104,7 @@
                         </div>
                         <div class="panel-body">
 								<div class="form-group">
-									<img src="assets/img/coffee.png" width="200" height="150"></img>
+									<img class="displayed" src="assets/img/coffee.png" width="200" height="150"></img>
 								</div>
 								<div class="form-group">
 										<label for="company" class="col-sm-6 control-label">Power:</label>
@@ -162,7 +162,7 @@
                         </div>
                         <div class="panel-body">
 							<div class="form-group">
-								<img src="assets/img/toaster.png" width="200" height="150"></img>
+								<img class="displayed" src="assets/img/toaster.png" width="200" height="150"></img>
 							</div>
 							<div class="form-group">
 									<label for="state" class="col-sm-6 control-label">Power:</label>
@@ -171,15 +171,24 @@
 									</div>
 							</div>
 							<div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Toast Status:</label>
+										<div class="col-sm-6">
+										<!--label for="company" class="col-sm-6 control-label" id="coffeeStatus"></label-->
+										<div class="progress">
+										<div class="progress-bar"  id="toastStatus" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">Ideal
+										</div></div>
+										</div>
+								</div>
+							<div class="form-group">
 									<label for="company" class="col-sm-6 control-label">Timer set:</label>
 									<div class="col-sm-6">
-									<label for="company" class="col-sm-6 control-label">TBD</label>
+									<label for="company" class="col-sm-6 control-label" id="timer"></label>
 									</div>
 							</div>
 							<div class="form-group">
 									<label for="company" class="col-sm-6 control-label">Bread:</label>
 									<div class="col-sm-6">
-									<label for="company" class="col-sm-6 control-label">TBD</label>
+									<label for="company" class="col-sm-6 control-label" id="bread">TBD</label>
 									</div>
 							</div>
                         </div><!--body-->
@@ -194,7 +203,7 @@
                         </div>
                         <div class="panel-body">
 								<div class="form-group">
-									<img src="assets/img/fridge.png" width="200" height="150"></img>
+									<img class="displayed" src="assets/img/fridge.png" width="200" height="150"></img>
 								</div>
 								<!--div class="form-group">
 										<label for="company" class="col-sm-6 control-label">Power:</label>
@@ -443,9 +452,24 @@
 				$(".machine").bootstrapSwitch('disabled', false); 
 				$(".machine").bootstrapSwitch('state', true);
 				$(".machine").bootstrapSwitch('disabled', true);
-				/*** coffee status ***/		
-				var progressBar = $('#coffeeStatus'),
+				
+				
+				 var coffeeStat = "Brewing";
+				 var toastStat = "Toasting"
+				 var coffeeBar = $('#coffeeStatus');
+				 var toastBar = $('#toastStatus');
+				 
+				 /*** coffee status ***/	
+				 statusBar(coffeeStat, coffeeBar);
+				 
+				 //setInterval(statusBar(toastStat, toastBar),5000);
+				 /*** toast status ***/	
+				 statusBar(toastStat, toastBar);
+				 
+				function statusBar(status, progressBar){
 					width = 0;
+					progressBar.css('width', width + '%');
+					progressBar.attr("aria-valuenow", width + "%");
 					var interval = setInterval(function() {
 					width += 33;
 					progressBar.css('width', width + '%');
@@ -454,7 +478,7 @@
 						progressBar.text('Started');
 						progressBar.removeClass().addClass("progress-bar progress-bar-danger"); 
 					}else if(width == 66){
-						 progressBar.text('Brewing');
+						 progressBar.text(status);
 						progressBar.removeClass().addClass("progress-bar progress-bar-warning"); 
 					}else{
 						progressBar.text('Finished');
@@ -463,12 +487,13 @@
 					if (width >= 100) {
 						clearInterval(interval);
 					}
-				}, 1000);	
+					}, 2000);
+				}
 			} else{
-				console.log("error Occured");
-			}
+					console.log("error Occured");
+				}
 			localStorage.clear();
-
+			
 		<!----- PRODUCE ------>
 		var produceId = "#produceBar";
 		test(produceLife, produceExpiry, produceId);
@@ -508,31 +533,8 @@
 				$(progId).attr("aria-valuenow", pct_left + "%");
 			} 
 		}
+       }); <!-- closing document.ready -->
 		
-		/***** COFFEE STATUS *****/
-/*		
-var progressBar = $('#coffeeStatus'),
-    width = 0;
-	var interval = setInterval(function() {
-    width += 33;
-    progressBar.css('width', width + '%');
-	progressBar.attr("aria-valuenow", width + "%");
-	if(width == 33){
-		progressBar.text('Started');
-		progressBar.removeClass().addClass("progress progress-bar-danger"); 
-	}else if(width == 66){
-		 progressBar.text('Brewing');
-		progressBar.removeClass().addClass("progress progress-bar-warning"); 
-	}else{
-		progressBar.text('Finished');
-		progressBar.removeClass().addClass("progress progress-bar-success"); 
-	}
-    if (width >= 100) {
-        clearInterval(interval);
-    }
-}, 1000);		*/
-		
-        });
 		<!----- end PRODUCE ------>
 		
 		/* storage */
@@ -637,44 +639,13 @@ document.getElementById('powder').innerHTML = powderLevel;
 document.getElementById('filter').innerHTML = randFilterStatus;
 //document.getElementById('status').innerHTML = randMachineStatus;
 
-/*
-//on page load
-var width = 0;
-	$(progId).removeClass().addClass("progress progress-bar-danger");
-	$(progId).text("Started");
-	$(progId).css("width", width + "%");
-	$(progId).attr("aria-valuenow", width + "%");
-// after 5 seconds 
-	$(progId).removeClass().addClass("progress progress-bar-warning");
-	$(progId).text("Brewing");
-	$(progId).css("width", width + "%");
-	$(progId).attr("aria-valuenow", width + "%");
-	
-// after 5 seconds
-	$(progId).removeClass().addClass("progress progress-bar-success");
-	$(progId).text("Finsihed");
-	$(progId).css("width", width + "%");
-	$(progId).attr("aria-valuenow", width + "%");
-	
-*/
-	/* var progressBar = $('#coffeeStatus'),
-    width = 0;
-	var interval = setInterval(function() {
-    width += 33;
-    progressBar.css('width', width + '%');
-	if(width == 33){
-		progressBar.text('Started');
-		$(progId).removeClass().addClass("progress progress-bar-danger");
-	}else if(width == 66){
-		progressBar.text('Brewing');
-		$(progId).removeClass().addClass("progress progress-bar-warning");
-	}else{
-		progressBar.text('Finsihed');
-		$(progId).removeClass().addClass("progress progress-bar-success");
-	}
-    if (width >= 100) {
-        clearInterval(interval);
-    }
-}, 1000); */
+
+/** Toaster **/
+
+var toasterTime = Math.floor((Math.random() * 5)+1);
+document.getElementById('timer').innerHTML = toasterTime + " secs";
+var breadLevel = Math.floor((Math.random() * 10)+1);
+document.getElementById('bread').innerHTML = breadLevel + " left";
+
 </script>
 </html>

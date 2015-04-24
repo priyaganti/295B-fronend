@@ -51,6 +51,8 @@ var jsalarm={
 	showcurrenttime:function(){
 		var dateobj=new Date()
 		//var ct=this.padfield(dateobj.getHours())+":"+this.padfield(dateobj.getMinutes())+":"+this.padfield(dateobj.getSeconds())
+		/*var ct = this.padfield(6)+":"+this.padfield(00)
+		console.log("the ct is:", ct); */
 		var ct=this.padfield(dateobj.getHours())+":"+this.padfield(dateobj.getMinutes())
 		this.ctref.innerHTML=ct
 		this.ctref.setAttribute("title", ct)
@@ -214,6 +216,10 @@ var jsalarm={
 </div>
 </body>
 <script>
+
+$('#autoSet').click(function(){
+	alert("Time will be set according to traffic conditions");
+});
 
 var setStatus = false; 
 function test(){

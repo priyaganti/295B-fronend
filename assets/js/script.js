@@ -66,7 +66,20 @@ $(function(){
 		// d is for day of week and A is for AM/PM
 
 		var now = moment().format("HHmmssd");
+		/*
+		var cTime = "6";
+		var zero = "0";
+		var trafficTime = "2";
+		var tTime = "5";
+		//var cNow = cTime.format("HHmmssd");
+		//console.log("time is ", cNow);
+		console.log("time is ", now[0]);
+		digits.h1.attr('class', digit_to_name[zero]);
+		digits.h2.attr('class', digit_to_name[cTime]);
+		digits.m1.attr('class', digit_to_name[trafficTime]);
+		digits.m2.attr('class', digit_to_name[tTime]); */
 
+		
 		digits.h1.attr('class', digit_to_name[now[0]]);
 		digits.h2.attr('class', digit_to_name[now[1]]);
 		digits.m1.attr('class', digit_to_name[now[2]]);
@@ -95,7 +108,8 @@ $(function(){
 		ampm.text(now[7]+now[8]); */
 
 		// Schedule this function to be run again in 1 sec
-		setTimeout(update_time, 1000);
+		setTimeout(update_time, 50000);
+		//update_time();
 
 	})();
 
