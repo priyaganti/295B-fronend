@@ -65,11 +65,12 @@
                 <ul class="nav navbar-nav side-nav">
 					<li><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
                     <li><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
-                    <li><a href="alarm.html"><i class="fa fa-tasks fa-lg"></i> Alarm Clock</a></li>
+					<li><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i> Demo page</a></li>
 					<li><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>
 					<li><a href="kitchen.html"><i class="fa fa-cutlery fa-lg"></i> Kitchen</a></li>
 					<li><a href="livingRoom.html"><i class="fa fa-gamepad fa-lg"></i> Living Room</a></li>
-					<li class="selected"><a href="exitDoor.html"><i class="fa fa-tasks fa-lg"></i> Exit Door</a></li>
+					<li class="selected"><a href="exitDoor.html"><i class="fa fa-sign-out fa-lg"></i> Exit Door</a></li>
+					<li><a href="support.html"><i class="fa fa-question-circle fa-lg"></i> Support</a></li>
 					
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
@@ -110,23 +111,29 @@
 										<table class="table table bordered table striped">
 											<tr>
 												<td>Items</td>
-												<td>Quantity</td>
+												<td>Quantity Left</td>
+												<td>Recommended</td>
+												
 											</tr>
-											<tr>
+											<tr id="milkRow" style="display:none;">
 												<td>Milk</td>
 												<td><input type="text" id="milk"></td>
+												<td><label id="milkMsg"></label></td>
 											</tr>
-											<tr>
+											<tr id="prodRow" style="display:none;">
 												<td>Produce</td>
 												<td><input type="text" id="prod"></td>
+												<td><label id="prodMsg"></label></td>
 											</tr>
-											<tr>
+											<tr id="eggsRow" style="display:none;">
 												<td>Eggs</td>
 												<td><input type="text" id="eggs"></td>
+												<td><label id="eggsMsg"></label></td>
 											</tr>
-											<tr>
+											<tr id="meatRow" style="display:none;">
 												<td>Meat</td>
 												<td><input type="text" id="meat"></td>
+												<td><label id="meatMsg"></label></td>
 											</tr>
 										</table>
 										</div>
@@ -152,15 +159,72 @@
 </div>
 </body>
 <script>
+$(document).ready(function(){
+/*
+$.ajax({ //indoor
+		url: 'kitchen.html', 
+		dataType: 'jsonp',
+		success: function(result){
+		var y = result.temperature;
+		console.log("temp value : ", y);
+		document.getElementById('temp').innerHTML = y;
+		}
+}); */
+
 	$(".machine").bootstrapSwitch();
 	if(typeof(Storage) !== "undefined") {
 		var milk_qty = sessionStorage.getItem('milkQuantity');
-		var pro_qty = sessionStorage.getItem('produceQuantity');
+		var prod_qty = sessionStorage.getItem('produceQuantity');
 		var eggs_qty = sessionStorage.getItem('eggsQuantity');
 		var meat_qty = sessionStorage.getItem('meatQuantity');
 		
-		document.getElementById("milk").value = milk_qty;
-		document.getElementById("prod").value = pro_qty;
+		console.log("produce is", eggs_qty);
+		console.log("produce is", meat_qty);
+		
+		var milkMsg, eggsMsg, prodMsg, meatMsg;
+		
+		var milkRow = document.getElementById('milkRow');
+		var prodRow = document.getElementById('prodRow');
+		var eggsRow = document.getElementById('eggsRow');
+		var meatRow = document.getElementById('meatRow');
+		
+		/** milk **/
+		if(milk_qty > 40){
+			milkRow.style.display = "none";
+		}else if(milk_qty < 15){
+			milkMsg = "Stock up! Urgent!";
+			milkRow.style.display = '';	
+			document.getElementById("milk").value = "only " + milk_qty +" %";
+			document.getElementById("milkMsg").innerHTML = milkMsg;
+		}else{
+			milkMsg = "Get 1 Bottle";
+			milkRow.style.display = '';			
+			document.getElementById("milk").value = "only " + milk_qty +" %";
+			document.getElementById("milkMsg").innerHTML = milkMsg;
+		}
+		
+		/** Produce **/
+		if(prod_qty > 40){
+			prodRow.style.display = "none";
+		}else if(prod_qty < 15){
+			prodMsg = "Get all Veggies! running short!";
+		}else{
+			prodMsg = "Get Cucumbers, Carrots, Bell Peppers and Salad mix";
+			prodRow.style.display = '';			
+			document.getElementById("prod").value = "only " + prod_qty +" %";
+			document.getElementById("prodMsg").innerHTML = prodMsg;
+		}
+		/** Eggs **/
+		
+		
+		
+		/** Meat **/
+		
+		/* if(milk_qty > 40 && prod_qty > 40 && eggs_qty > 8 && meat_qty > 1){
+			console.log("Display that everyhthing is stocked up!");
+		} */
+		
+		//document.getElementById("prod").value = pro_qty;
 		document.getElementById("eggs").value = eggs_qty;
 		document.getElementById("meat").value = meat_qty;
 		/* console.log("qty is: ", qty);
@@ -168,5 +232,6 @@
 	} else {
 		alert("Sorry! No Web Storage support..");
 	}
+});
 </script>
 </html>

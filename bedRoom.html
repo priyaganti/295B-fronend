@@ -146,11 +146,12 @@ var jsalarm={
                 <ul class="nav navbar-nav side-nav">
 					<li><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
                     <li><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
-                    <li><a href="alarm.html"><i class="fa fa-tasks fa-lg"></i> Alarm Clock</a></li>
-					<li class="selected"><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>
+					<li><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i> Demo Page</a></li>
+					<li class="selected"><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>					
 					<li><a href="kitchen.html"><i class="fa fa-cutlery fa-lg"></i> Kitchen</a></li>
 					<li><a href="livingRoom.html"><i class="fa fa-gamepad fa-lg"></i> Living Room</a></li>
-					<li><a href="exitDoor.html"><i class="fa fa-tasks fa-lg"></i> Exit Door</a></li>
+					<li><a href="exitDoor.html"><i class="fa fa-sign-out fa-lg"></i> Exit Door</a></li>
+					<li><a href="support.html"><i class="fa fa-question-circle fa-lg"></i> Support</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
                      <li class="dropdown user-dropdown">
@@ -200,7 +201,7 @@ var jsalarm={
                 <h4 class="modal-title">Turn Off Alarm</h4>
             </div>
             <div class="modal-body" style="text-align:center;">
-				<button type="button" class="btn btn-primary" id="offAlarm" onClick="unsetAlarm(this.id)"data-dismiss="modal">Turn Off Alarm</button>
+				<button type="button" class="btn btn-primary" id="offAlarm" onClick="test();"data-dismiss="modal">Turn Off Alarm</button>
             </div>
             <!--div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -213,6 +214,17 @@ var jsalarm={
 </div>
 </body>
 <script>
+
+var setStatus = false; 
+function test(){
+	console.log("came to test");
+	/* $(".machine").bootstrapSwitch('disabled', false); 
+	$(".machine").bootstrapSwitch('state', true);
+	$(".machine").bootstrapSwitch('disabled', true); */
+	setStatus = true;
+	localStorage.setItem('buttonStatus', setStatus);
+	window.location = "kitchen.html";
+}
 	jsalarm.init()
 	$(".machine").bootstrapSwitch();
 var date = new Date();

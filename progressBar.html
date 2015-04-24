@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<style>
+/*
+	#coffeeStatus {
+    width: 0;
+    background: #f78;
+    text-align: center;
+    overflow: hidden;   
+} */
+
+body{background: #f78;}
+</style>
+<script>
+/* 
+var progressBar = $('#progress-bar'),
+    width = 0;
+
+progressBar.width(width);
+
+var interval = setInterval(function() {
+
+    width += 10;
+
+    progressBar.css('width', width + '%');
+
+    if (width >= 100) {
+        clearInterval(interval);
+    }
+}, 1000) */
+
+$(document).ready(function() {
+var progressBar = $('#coffeeStatus'),
+    width = 0;
+	var interval = setInterval(function() {
+    width += 33;
+    progressBar.css('width', width + '%');
+	progressBar.attr("aria-valuenow", width + "%");
+	if(width == 33){
+		progressBar.text('Started');
+		progressBar.removeClass().addClass("progress progress-bar-danger");
+	}else if(width == 66){
+		progressBar.text('Brewing');
+		progressBar.removeClass().addClass("progress progress-bar-warning");
+	}else{
+		progressBar.text('Finsihed');
+		progressBar.removeClass().addClass("progress progress-bar-success");
+	}
+    if (width >= 100) {
+        clearInterval(interval);
+    }
+}, 1000);
+});
+</script>
+<body>
+	<!--div id="progress-bar">progress bar</div-->
+	<h4>Hello</h4>
+	<div class="col-sm-4 progress" id="bar">
+		<div class="progress-bar"  id="coffeeStatus" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+	</div></div>
+</body>
+</html>
+

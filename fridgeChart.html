@@ -9,6 +9,19 @@
 	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 </body>
 <script>
+	/*var retrievedObject = localStorage.getItem('myObject');
+		var parsedObject = JSON.parse(retrievedObject);
+		var milkQtyArray = JSON.parse(retrievedObject).milkQuantityArray;
+		var milkExpiryArray = JSON.parse(retrievedObject).milkExpiryArray;
+		console.log('milkQuantity: ', JSON.parse(retrievedObject).milkQuantityArray);
+		console.log('milkExpiry: ', JSON.parse(retrievedObject).milkExpirationArray); */
+		var eggs = [11, 10, 7, 5, 4, 2, 12];
+		var eggsQty = [];
+		for(var i=0; i < eggs.length; i++){
+			eggsQty[i] = (eggs[i]*100)/12;
+		}
+		var produce = [70, 60, 45, 33, 21, 15, 100];
+		console.log(eggsQty);
 	$(function () {
     $('#container').highcharts({
         chart: {
@@ -41,7 +54,7 @@
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
             footerFormat: '</table>',
             shared: true,
             useHTML: true
@@ -55,14 +68,17 @@
         series: [{
             name: 'Milk',
             data: [40, 50, 100, 67, 88, 79, 20]
+			//data: milkQtyArray
 
         }, {
             name: 'Produce',
-            data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0]
+            //data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0]
+			data: produce
 
         }, {
             name: 'Egss',
-            data: [12, 7, 9, 10, 6, 8, 11]
+            //data: [12, 7, 9, 10, 6, 8, 11]
+			data : eggsQty
 
         }, {
             name: 'Meat',

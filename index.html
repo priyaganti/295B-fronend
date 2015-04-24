@@ -31,6 +31,12 @@
 <script>
 /* Google Maps */
 $(document).ready(function() {
+
+		/* var retrievedObject = localStorage.getItem('myObject');
+		var parsedObject = JSON.parse(retrievedObject);
+		console.log('milkQuantity: ', JSON.parse(retrievedObject).milkQuantityArray);
+		console.log('milkExpiry: ', JSON.parse(retrievedObject).milkExpirationArray); */
+
   $.simpleWeather({
     location: 'San Francisco, CA',
     woeid: '',
@@ -361,11 +367,12 @@ i {
                 <ul id="active" class="nav navbar-nav side-nav">
 					<li><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
                     <li class="selected"><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
-                    <li><a href="alarm.html"><i class="fa fa-tasks fa-lg"></i> Alarm Clock</a></li>
+					<li><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i> Demo Page</a></li>
 					<li><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>
 					<li><a href="kitchen.html"><i class="fa fa-cutlery fa-lg"></i> Kitchen</a></li>
 					<li><a href="livingRoom.html"><i class="fa fa-gamepad fa-lg"></i> Living Room</a></li>
-					<li><a href="exitDoor.html"><i class="fa fa-tasks fa-lg"></i> Exit Door</a></li>
+					<li><a href="exitDoor.html"><i class="fa fa-sign-out fa-lg"></i> Exit Door</a></li>
+					<li><a href="support.html"><i class="fa fa-question-circle fa-lg"></i> Support</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right navbar-user">

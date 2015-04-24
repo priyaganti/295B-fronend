@@ -67,11 +67,12 @@
                 <ul class="nav navbar-nav side-nav">
 					<li><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
                     <li><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
-                    <li><a href="alarm.html"><i class="fa fa-tasks fa-lg"></i> Alarm Clock</a></li>
+					<li><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i> Demo Page</a></li>
 					<li><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>
 					<li class="selected"><a href="kitchen.html"><i class="fa fa-cutlery fa-lg"></i> Kitchen</a></li>
 					<li><a href="livingRoom.html"><i class="fa fa-gamepad fa-lg"></i> Living Room</a></li>
-					<li><a href="exitDoor.html"><i class="fa fa-tasks fa-lg"></i> Exit Door</a></li>
+					<li><a href="exitDoor.html"><i class="fa fa-sign-out fa-lg"></i> Exit Door</a></li>
+					<li><a href="support.html"><i class="fa fa-question-circle fa-lg"></i> Support</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
                      <li class="dropdown user-dropdown">
@@ -91,8 +92,6 @@
 		<!-- Adding Priyanka's code -->
 		
 		<h2 style="text-align:center;">Kitchen</h2>
-		<button class="btn btn-warning" id="simulate">Start Simulation</button>
-		<button class="btn btn-success" id="nextDay">Next Day</button>
 		<ul class="pager">
 			<li class="previous"><a href="bedRoom.html">Previous</a></li>
 			<li class="next"><a href="livingRoom.html">Next</a></li>
@@ -114,21 +113,30 @@
 										</div>
 								</div>
 								<div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Coffee Status:</label>
+										<div class="col-sm-6">
+										<!--label for="company" class="col-sm-6 control-label" id="coffeeStatus"></label-->
+										<div class="progress">
+										<div class="progress-bar"  id="coffeeStatus" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">Ideal
+										</div></div>
+										</div>
+								</div>
+								<div class="form-group">
 										<label for="company" class="col-sm-6 control-label">Water Level:</label>
 										<div class="col-sm-6">
-										<label for="company" class="col-sm-6 control-label">TBD</label>
+										<label for="company" class="col-sm-6 control-label" id="water"></label>
 										</div>
 								</div>
 								<div class="form-group">
 										<label for="company" class="col-sm-6 control-label">Powder Level:</label>
 										<div class="col-sm-6">
-										<label for="company" class="col-sm-6 control-label">TBD</label>
+										<label for="company" class="col-sm-6 control-label" id="powder"></label>
 										</div>
 								</div>
 								<div class="form-group">
 										<label for="company" class="col-sm-6 control-label">Filter Status:</label>
 										<div class="col-sm-6">
-										<label for="company" class="col-sm-6 control-label">TBD</label>
+										<label for="company" class="col-sm-6 control-label" id="filter"></label>
 										</div>
 								</div>
 								<div class="form-group">
@@ -265,8 +273,7 @@
     </div> 
 </div>
 </body>
-<script>
-
+<script>	
 	$( "#coffeeCup" ).click(function() {
 	// disable the button and then start reading...
 	 $("#coffeeCup").prop("disabled",true);
@@ -306,57 +313,58 @@
 	
 	/* MILK Section */
 	
+	/**** Default Page Code ***/
+	
 		var milkFreshness = Math.floor(Math.random() * 16);
+		console.log("milk current Fresh ", milkFreshness , "days");
 		var milkLife = 15;
-		var milkExpiry = exp(milkFreshness, milkLife); 
-	
-		//var milkQty = Math.floor(Math.random() * 101); 
+		var milkExpiry = exp(milkFreshness, milkLife);
 		
-	//if (milkFreshness not in localStorage or milkQty < 1):	
-	var q = 0;
-	var milkQty;
-	var reduce = 20;
-	var milkId = "#milkQty"; // id for the progress bar
-	$( "#simulate" ).click(function() {
-		//console.log("inside simulate");
-		localStorage.clear();
-		q = localStorage.getItem('milkQuantity');
-		console.log("milk from storage is: ",q);
-		// if no value is stored in localStorage, then initialize with any value 0-100
-		if(!q){
-			milkQty = Math.floor(Math.random() * 101); 
-			console.log("Now initializing to: ", milkQty);
-			localStorage.setItem('milkQuantity', milkQty);
-			displayMilkQty(milkQty, milkId);
-		}
-	});
-	
-	function alerting(){
-		alert("you have very less milk.. stocking up now!");
-		milkQty = Math.floor(Math.random() * 101); 
-		localStorage.setItem('milkQuantity', milkQty);
-		displayMilkQty(milkQty, milkId);
-	}
-	
-	$( "#nextDay" ).click(function() {
-			 q = localStorage.getItem('milkQuantity');
-			if( q < 10){
-				alerting();
-			} else{
-			 console.log("nextDay value from storage is: ",q);
-				milkQty = q - reduce;
-				if(milkQty < 10)
-				{	
-					alerting();
-				}
-				localStorage.setItem('milkQuantity',milkQty);
-			 console.log("current day qty ", milkQty);
-			 displayMilkQty(milkQty, milkId); 
-			}
-			 
-	});
-	
+		var milkId = "#milkQty";
+		var milkQty = Math.floor(Math.random() * 101); 
+		 displayMilkQty(milkQty, milkId); 
+		 
 	/* end MILK Section */
+	
+			<!----- MILK ------>
+	function displayMilkQty(milkQty, milkId){
+		var full = milkQty + 100;
+		if(milkQty == 100){
+			console.log("value 100");
+			$(milkId).removeClass().addClass("progress-bar progress-bar-success");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text("Full");
+		}else if(milkQty <= 10){
+			console.log("value less than 10");
+			$(milkId).addClass("progress-bar-danger");
+			$(milkId).css("width", full + "%");
+			$(milkId).attr("aria-valuenow", full + "%");
+			$(milkId).text("Empty! Stock up!");
+		} else if(milkQty > 70 && milkQty < 100){
+			console.log("between 70-100");
+			$(milkId).removeClass().addClass("progress-bar progress-bar-success");
+			//$(milkId).addClass("progress-bar-success");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text(milkQty + " %");
+		} else if(milkQty > 40 && milkQty < 70){
+			console.log("between 40-70");
+			//$(milkId).addClass("");
+			$(milkId).removeClass().addClass("progress-bar");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text(milkQty + " %");
+		} else{
+			console.log("between 10-40");
+			$(milkId).removeClass().addClass("progress-bar progress-bar-warning");
+			//$(milkId).addClass("progress-bar-warning");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text(milkQty + " %");
+		}
+	} // closing function
+		<!----- end MILK ------>
 	
 	
 	<!----- PRODUCE QUANTITY ---->
@@ -388,7 +396,7 @@
 		//Meat
 		var meatQty = Math.floor(Math.random() * 3);
 		if(meatQty > 0){
-			var meat = ["Fish","Chicken","Beef"];
+			var meat = ["Fish","Chicken","turkey"];
 			var meatVariety = meat[Math.floor(Math.random() * meat.length)];
 			var meatQtyMsg = meatQty + " servings of " + meatVariety + " left"; 
 		}else{ meatQtyMsg = "Stock up! No more meat!";
@@ -426,41 +434,41 @@
 		}
 		
 		<!------ end EXPIRY ------>
-		
-			<!----- MILK ------>
-	function displayMilkQty(milkQty, milkId){
-		var full = milkQty + 100;
-		if(milkQty == 100){
-			$(milkId).addClass("progress-bar-success");
-			$(milkId).css("width", milkQty + "%");
-			$(milkId).attr("aria-valuenow", milkQty + "%");
-			$(milkId).text("Full");
-		}else if(milkQty == 0){
-			$(milkId).addClass("progress-bar-danger");
-			$(milkId).css("width", full + "%");
-			$(milkId).attr("aria-valuenow", full + "%");
-			$(milkId).text("Empty!");
-		} else if(milkQty > 70 && milkQty < 100){
-			$(milkId).addClass("progress-bar-success");
-			$(milkId).css("width", milkQty + "%");
-			$(milkId).attr("aria-valuenow", milkQty + "%");
-			$(milkId).text(milkQty + " %");
-		} else if(milkQty > 40 && milkQty < 70){
-			$(milkId).addClass("");
-			$(milkId).css("width", milkQty + "%");
-			$(milkId).attr("aria-valuenow", milkQty + "%");
-			$(milkId).text(milkQty + " %");
-		} else{
-			$(milkId).addClass("progress-bar-warning");
-			$(milkId).css("width", milkQty + "%");
-			$(milkId).attr("aria-valuenow", milkQty + "%");
-			$(milkId).text(milkQty + " %");
-		}
-	} // closing function
-		<!----- end MILK ------>
+	
 		
 		$(document).ready(function() {
-		
+			var status = localStorage.getItem('buttonStatus');
+			console.log("status is ", status);
+			if(status){
+				$(".machine").bootstrapSwitch('disabled', false); 
+				$(".machine").bootstrapSwitch('state', true);
+				$(".machine").bootstrapSwitch('disabled', true);
+				/*** coffee status ***/		
+				var progressBar = $('#coffeeStatus'),
+					width = 0;
+					var interval = setInterval(function() {
+					width += 33;
+					progressBar.css('width', width + '%');
+					progressBar.attr("aria-valuenow", width + "%");
+					if(width == 33){
+						progressBar.text('Started');
+						progressBar.removeClass().addClass("progress-bar progress-bar-danger"); 
+					}else if(width == 66){
+						 progressBar.text('Brewing');
+						progressBar.removeClass().addClass("progress-bar progress-bar-warning"); 
+					}else{
+						progressBar.text('Finished');
+						progressBar.removeClass().addClass("progress-bar progress-bar-success"); 
+					}
+					if (width >= 100) {
+						clearInterval(interval);
+					}
+				}, 1000);	
+			} else{
+				console.log("error Occured");
+			}
+			localStorage.clear();
+
 		<!----- PRODUCE ------>
 		var produceId = "#produceBar";
 		test(produceLife, produceExpiry, produceId);
@@ -468,8 +476,8 @@
 		test(eggsLife, eggsExpiry, eggsId);
 		var meatId = "#meatBar";
 		test(meatLife, meatExpiry, meatId);
-		var milkId = "#milkBar";
-		test(milkLife, milkExpiry, milkId);
+		var milkEId = "#milkBar";
+		test(milkLife, milkExpiry, milkEId);
 			
 		function test(shelfLife, expiryDay, progId){
 			var pct_left = (expiryDay/shelfLife) * 100;
@@ -500,6 +508,30 @@
 				$(progId).attr("aria-valuenow", pct_left + "%");
 			} 
 		}
+		
+		/***** COFFEE STATUS *****/
+/*		
+var progressBar = $('#coffeeStatus'),
+    width = 0;
+	var interval = setInterval(function() {
+    width += 33;
+    progressBar.css('width', width + '%');
+	progressBar.attr("aria-valuenow", width + "%");
+	if(width == 33){
+		progressBar.text('Started');
+		progressBar.removeClass().addClass("progress progress-bar-danger"); 
+	}else if(width == 66){
+		 progressBar.text('Brewing');
+		progressBar.removeClass().addClass("progress progress-bar-warning"); 
+	}else{
+		progressBar.text('Finished');
+		progressBar.removeClass().addClass("progress progress-bar-success"); 
+	}
+    if (width >= 100) {
+        clearInterval(interval);
+    }
+}, 1000);		*/
+		
         });
 		<!----- end PRODUCE ------>
 		
@@ -591,7 +623,58 @@
 				console.log('Error: '+e);
 			}  
 		}); */				
-		
-		
+/**** COFFEE MACHINE ****/
+
+var waterLevel = Math.floor((Math.random() * 100)+1);
+var powderLevel = Math.floor((Math.random() * 100)+1);
+var filterStatus = ['Excellent', 'Good', 'Fine', 'Bad', 'Very Bad'];
+var randFilterStatus = filterStatus[Math.floor(Math.random() * filterStatus.length)];
+var machineStatus = ['Started', 'Brewing', 'Finished'];
+var randMachineStatus = machineStatus[Math.floor(Math.random() * machineStatus.length)];
+
+document.getElementById('water').innerHTML = waterLevel;
+document.getElementById('powder').innerHTML = powderLevel;
+document.getElementById('filter').innerHTML = randFilterStatus;
+//document.getElementById('status').innerHTML = randMachineStatus;
+
+/*
+//on page load
+var width = 0;
+	$(progId).removeClass().addClass("progress progress-bar-danger");
+	$(progId).text("Started");
+	$(progId).css("width", width + "%");
+	$(progId).attr("aria-valuenow", width + "%");
+// after 5 seconds 
+	$(progId).removeClass().addClass("progress progress-bar-warning");
+	$(progId).text("Brewing");
+	$(progId).css("width", width + "%");
+	$(progId).attr("aria-valuenow", width + "%");
+	
+// after 5 seconds
+	$(progId).removeClass().addClass("progress progress-bar-success");
+	$(progId).text("Finsihed");
+	$(progId).css("width", width + "%");
+	$(progId).attr("aria-valuenow", width + "%");
+	
+*/
+	/* var progressBar = $('#coffeeStatus'),
+    width = 0;
+	var interval = setInterval(function() {
+    width += 33;
+    progressBar.css('width', width + '%');
+	if(width == 33){
+		progressBar.text('Started');
+		$(progId).removeClass().addClass("progress progress-bar-danger");
+	}else if(width == 66){
+		progressBar.text('Brewing');
+		$(progId).removeClass().addClass("progress progress-bar-warning");
+	}else{
+		progressBar.text('Finsihed');
+		$(progId).removeClass().addClass("progress progress-bar-success");
+	}
+    if (width >= 100) {
+        clearInterval(interval);
+    }
+}, 1000); */
 </script>
 </html>

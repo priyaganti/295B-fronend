@@ -23,8 +23,14 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
 	<link href="bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet">
 	<script src="bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<script type="text/javascript" src="js/jquery.simpleWeather.min.js" /></script>
+	<link rel="stylesheet" type="text/css" href="css/weather.css" />
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 		
       <style>
+		div{
+			color:#fff;
+		}
         .padBottom {
             padding-bottom:20px;
         }
@@ -59,11 +65,12 @@
                 <ul class="nav navbar-nav side-nav">
 					<li><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
                     <li><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
-                    <li><a href="alarm.html"><i class="fa fa-tasks fa-lg"></i> Alarm Clock</a></li>
+					<li><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i> Demo Page</a></li>
 					<li><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>
 					<li><a href="kitchen.html"><i class="fa fa-cutlery fa-lg"></i> Kitchen</a></li>
 					<li class="selected"><a href="livingRoom.html"><i class="fa fa-gamepad fa-lg"></i> Living Room</a></li>
-					<li><a href="exitDoor.html"><i class="fa fa-tasks fa-lg"></i> Exit Door</a></li>					
+					<li><a href="exitDoor.html"><i class="fa fa-sign-out fa-lg"></i> Exit Door</a></li>
+					<li><a href="support.html"><i class="fa fa-question-circle fa-lg"></i> Support</a></li>					
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
                      <li class="dropdown user-dropdown">
@@ -88,7 +95,7 @@
 			<li class="next"><a href="exitDoor.html">Next</a></li>
 		</ul>	
 		<div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Entertainment System</h3>
@@ -104,18 +111,21 @@
 								</video>
 							</div>
 						</div>
-						<div class="form-group">
-								<label for="company" class="col-sm-6 control-label">Weather:</label>
-								<div class="col-sm-6">
-									<label for="company" class="col-sm-6 control-label">TBD</label>
-								</div>
+						<div class="well col-sm-12"><h4>Weather</h4>
+							<div class="col-sm-6">
+								<div class="well weather" id="homeWeather"></div>
+							</div>
+							<div class="col-sm-6">
+								<div class="well weather" id="workWeather"></div>
+							</div>
 						</div>
-						<div class="form-group">
-								<label for="company" class="col-sm-6 control-label">Traffic:</label>
-								<div class="col-sm-6">
-									<label for="company" class="col-sm-6 control-label">TBD</label>
-								</div>
-						</div>
+						<div class="well col-sm-12"><h4>Traffic</h4>
+						<div class="col-sm-6" id="text"></div>
+						</div> <!-- col-sm-12-->
+						<div class="well col-sm-12"><h4>Recommendations</h4>
+						<div class=" well col-sm-6" id="weatherRec"></div>
+						<div class=" well col-sm-6" id="trafficRec"></div>
+						</div> <!-- col-sm-12-->
                         </div><!-- body-->
                     </div>
                 </div>
@@ -132,13 +142,13 @@
 							<div class="form-group">
 									<label for="state" class="col-sm-6 control-label">Power:</label>
 									<div class="col-sm-6">
-									<input type="checkbox" name="my-checkbox" class="machine" id="toaster" data-off-color="danger" data-on-color="success" disabled />
+									<input type="checkbox" name="my-checkbox" class="machine" id="thermostat" data-off-color="danger" data-on-color="success" disabled />
 									</div>
 							</div>
 							<div class="form-group">
-									<label for="company" class="col-sm-6 control-label">Temperature:</label>
+									<label for="company" class="col-sm-6 control-label">Indoor Temperature:</label>
 									<div class="col-sm-6">
-									<label for="company" class="col-sm-6 control-label">TBD</label>
+									<label for="company" class="col-sm-6 control-label" id="temp"></label>
 									</div>
 							</div>
                         </div><!--body-->
@@ -150,6 +160,122 @@
 </div>
 </body>
 <script>
+/* Traffic */
+
+	var cities = ["San Jose Downtown", "Santa Clara", "Sunnyvale", "Mountain View", "Palo Alto", "Redwood City", "San Carlos", "Belmont", "San Mateo", "Burlingame", "Milbrae", "San Bruno", "Airport", "South San Francisco", "Brisbane", "Bernal Heights", "Mission District", "San Francisco Downtown"];
+	var incident = ["Construction", "Accident", "Road Closure", "No Incidents"];
+	var randCity = cities[Math.floor(Math.random() * cities.length)];
+	var randIncident = incident[Math.floor(Math.random() * incident.length)];
+	var randMins = Math.floor((Math.random() * 21) + 10);
+	console.log(randCity + " " + randIncident + " " + randMins + " mins");
+	var trafficUpdate= randIncident + " on North Bound US-101 near " + randCity;
+	var recommendTraffic = randIncident + " on North Bound US-101 near " + randCity + " Please leave in " + randMins + " minutes";
+	if(randIncident == "No Incidents"){
+		recommendTraffic = "No traffic. Takes an average of 1 hour to reach work";
+	}
+	document.getElementById("text").innerHTML = trafficUpdate;
+	document.getElementById("trafficRec").innerHTML = recommendTraffic;
+
+/* Power ON for Thermostat */
 	$(".machine").bootstrapSwitch();
+	$(".machine").bootstrapSwitch('disabled', false); 
+	$(".machine").bootstrapSwitch('state', true);
+	$(".machine").bootstrapSwitch('disabled', true);
+	
+/* Thermostat Temp Display **/
+$.ajax({ //indoor
+		url: 'http://Default-Environment-qnbzq3unpn.elasticbeanstalk.com/1/getTemp', 
+		dataType: 'jsonp',
+		success: function(result){
+		var y = result.temperature;
+		console.log("temp value : ", y);
+		document.getElementById('temp').innerHTML = y;
+		}
+});
+
+/** Weather Display **/
+	$.simpleWeather({
+    location: 'San Francisco, CA',
+    woeid: '',
+    unit: 'f',
+    success: function(weather) {
+	var temp = weather.temp;
+	var condition = weather.currently;
+	//alert(condition);
+	if(condition == "Light Rain" || condition == "Rain" || condition == "Showers" ){
+		document.getElementById('recommend').innerHTML = "Take an Umbrella. Rain in weather prediction.";
+	}
+	/* if(temp > 70){
+	document.getElementById('recommend').innerHTML = "Summer is here and it's Shorts weather!";
+  }else if(temp < 60 && temp > 50){
+	document.getElementById('recommend').innerHTML = "It's gonna be cold. A Jacket might come in handy!";
+  } */
+      html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
+      html += '<ul><li>'+weather.city+', '+weather.region+'</li>';
+      html += '<li class="currently">'+weather.currently+'</li></ul><br/>';
+     // html += '<li>'+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</li></ul><br/>';
+	  // html += '<li>'+weather.sunrise+' '+weather.sunset+'</li></ul>';
+	  html +='<div class="well"><h4>Sunrise '+weather.sunrise+'</h4>';
+	  html +='<h4>Sunset '+weather.sunset+'</h4></div>';
+	   html +='<div class="well"><h4>Forecast</h4>';
+	   html +='<table class="table table-striped">';
+	for(var i=0;i<weather.forecast.length;i++) {
+        html += '<tr><td>'+weather.forecast[i].day+'</td>';
+		html += '<td>'+weather.forecast[i].high+'</td>';
+		html += '<td>'+weather.forecast[i].low+'</td></tr>';
+      }
+	  html +='</table></div>';
+      $("#workWeather").html(html);
+    },
+    error: function(error) {
+      $("#workWeather").html('<p>'+error+'</p>');
+    }
+  }); 
+  
+  $.simpleWeather({
+    location: 'San Jose, CA',
+    woeid: '',
+    unit: 'f',
+    success: function(weather) {
+	var temp = weather.temp;
+	var condition = weather.currently;
+	//alert(condition);
+	if(condition == "Light Rain" || condition == "Rain" || condition == "Showers" ){
+		document.getElementById('recommend').innerHTML = "Please take an Umbrella. Rain/showers in weather prediction.";
+	} else if(condition == "Fair" && temp > 70){
+		document.getElementById('recommend').innerHTML = "Clear skies and hot temperatures. Time to wear Shorts!";
+	  } else if(condition == "Fair" && temp < 60){
+		document.getElementById('recommend').innerHTML = "Clear skies but low temperatures. Carry a Jacket!";
+	  } else if(condition == "Cloudy" || condition == "Partly Cloudy" && temp < 65){
+		document.getElementById('recommend').innerHTML = "The temperatures are below 60 degrees. Wear that extra layer!";
+	  }else if(condition == "Fair" && temp > 60 && temp < 70){
+		document.getElementById('recommend').innerHTML = "Sunny with clear skies. Feel free to dress up like you wish!";
+	  } 
+	/* if(temp > 70){
+	document.getElementById('recommend').innerHTML = "Summer is here and it's Shorts weather!";
+  }else if(temp < 60 && temp > 50){
+	document.getElementById('recommend').innerHTML = "It's gonna be cold. A Jacket might come in handy!";
+  } */
+      html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
+      html += '<ul><li>'+weather.city+', '+weather.region+'</li>';
+      html += '<li class="currently">'+weather.currently+'</li></ul><br/>';
+     // html += '<li>'+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</li></ul><br/>';
+	  // html += '<li>'+weather.sunrise+' '+weather.sunset+'</li></ul>';
+	  html +='<div class="well"><h4>Sunrise '+weather.sunrise+'</h4>';
+	  html +='<h4>Sunset '+weather.sunset+'</h4></div>';
+	   html +='<div class="well"><h4>Forecast</h4>';
+	   html +='<table class="table table-striped">';
+	for(var i=0;i<weather.forecast.length;i++) {
+        html += '<tr><td>'+weather.forecast[i].day+'</td>';
+		html += '<td>'+weather.forecast[i].high+'</td>';
+		html += '<td>'+weather.forecast[i].low+'</td></tr>';
+      }
+	  html +='</table></div>';
+      $("#homeWeather").html(html);
+    },
+    error: function(error) {
+      $("#homeWeather").html('<p>'+error+'</p>');
+    }
+  }); 
 </script>
 </html>

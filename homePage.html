@@ -31,16 +31,16 @@
 	$( document ).ready(function() {                            
 		  $('#ImageMap1').maphilight();
 		$('.bedroom').on('click', function() {
-			if($("#kitchenAppliances").is(":visible")){
-				$("#kitchenAppliances").toggle("hide");
-			}
-			$("#alarmClock").toggle("show");
+			window.location = "bedRoom.html";
 		});
 		$('#kitchen').on('click', function() {
-			if($("#alarmClock").is(":visible")){
-				$("#alarmClock").toggle("hide");
-			}
-			$("#kitchenAppliances").toggle("show");
+			window.location = "kitchen.html";
+		});
+		$('#living').on('click', function() {
+			window.location = "livingRoom.html";
+		});
+		$('#door').on('click', function() {
+			window.location = "exitDoor.html";
 		});
 	});
 	</script>
@@ -62,35 +62,16 @@
                 <ul class="nav navbar-nav side-nav">
 				<li class="selected"><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
                     <li><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
-                    <li><a href="alarm.html"><i class="fa fa-tasks fa-lg"></i> Alarm Clock</a></li>
+					<li><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i> Demo Page</a></li>
 					<li><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>
 					<li><a href="kitchen.html"><i class="fa fa-cutlery fa-lg"></i> Kitchen</a></li>
 					<li><a href="livingRoom.html"><i class="fa fa-gamepad fa-lg"></i> Living Room</a></li>
-					<li><a href="exitDoor.html"><i class="fa fa-tasks fa-lg"></i> Exit Door</a></li>
+					<li><a href="exitDoor.html"><i class="fa fa-sign-out fa-lg"></i> Exit Door</a></li>
+					<li><a href="support.html"><i class="fa fa-question-circle fa-lg"></i> Support</a></li>
+					
                  
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
-                    <!--li class="dropdown messages-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge">2</span> <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-header">2 New Messages</li>
-                            <li class="message-preview">
-                                <a href="#">
-                                    <span class="avatar"><i class="fa fa-bell"></i></span>
-                                    <span class="message">Security alert</span>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li class="message-preview">
-                                <a href="#">
-                                    <span class="avatar"><i class="fa fa-bell"></i></span>
-                                    <span class="message">Security alert</span>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#">Go to Inbox <span class="badge">2</span></a></li>
-                        </ul>
-                    </li-->
                      <li class="dropdown user-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Steve Miller<b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -110,6 +91,8 @@
 			<area shape="poly" alt="" title="kitchen" id="kitchen" coords="51,246,210,183,257,237,203,259,287,380,163,437,51,246" data-maphilight='{"strokeColor":"000000","strokeWidth":3,"fillColor":"6699ff","fillOpacity":0.6}'/>
 			<area shape="poly" alt="" title="Bed room 1" class="bedroom" coords="374,86,554,18,660,106,562,146,611,199,519,237,374,86" data-maphilight='{"strokeColor":"000000","strokeWidth":3,"fillColor":"6699ff","fillOpacity":0.6}'/>
 			<area shape="poly" alt="" title="Bed room 2" class="bedroom" coords="616,278,777,204,948,345,776,439,616,278" data-maphilight='{"strokeColor":"000000","strokeWidth":3,"fillColor":"6699ff","fillOpacity":0.6}'/>
+			<area shape="poly" alt="" title="Living Room" id="living" coords="282,368,461,300,544,374,351,470,282,368" data-maphilight='{"strokeColor":"000000","strokeWidth":3,"fillColor":"6699ff","fillOpacity":0.6}'/>
+			<area shape="poly" alt="" title="Entrance/Exit Door" id="door" coords="606,371,598,445,655,415,666,342,620,300,573,329,606,371" data-maphilight='{"strokeColor":"000000","strokeWidth":3,"fillColor":"6699ff","fillOpacity":0.6}'/>
 		</map>
 		<div id="kitchenAppliances" style="display:none;">
 			<div class="well col-sm-6">
