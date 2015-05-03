@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Dark Admin</title>
+    <title>Registration</title>
 
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
@@ -32,12 +32,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <!--a class="navbar-brand" href="index.html"><img src="assets/img/logo-new.jpg" style="margin-top: -7px; background-color:black" width="80" height="50"></img></a-->
+               <a class="navbar-brand" href="index.html"><img src="assets/img/logo-new.png" style="margin-top: -5px;" width="65" height="40"></img></a>
             </div>
 				<h2>IOT Home Automation</h2>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <br/><li><a href="signup.html"><i class="fa fa-sign-in fa-lg"></i> Sign In</a></li>
+                    <br/><li><a href="signin.html"><i class="fa fa-sign-in fa-lg"></i> Sign In</a></li>
                     <li class="selected"><a href="register.html"><i class="fa fa-key fa-lg"></i> Register</a></li>   
                 </ul>
             </div>
@@ -97,60 +97,11 @@
                 <i class="fa fa-lock fa-2x"></i>
             </div>
         </div>
-        <div>
-            <label for="sex" class="col-md-2">
-                Gender:
-            </label>
-            <div class="col-md-10">
-                <label class="radio">
-                    <input type="radio" name="sex" id="sex" value="male" checked>
-                    Male
-                </label>
-                <label class="radio">
-                    <input type="radio" name="sex" id="Radio1" value="female">
-                    Female
-                </label>
-            </div>             
-        </div>
-        <div>
-            <label for="country" class="col-md-2">
-                Country:
-            </label>
-            <div class="col-md-9">
-                <select name="country" id="country" class="form-control">
-                    <option>--Please Select--</option>
-                    <option>India</option>
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>United Kingdom</option>
-                    <option>Others</option>
-                </select>
-            </div>            
-        </div>
-        <!--<div>
-            <label for="uploadimage" class="col-md-2">
-                Upload Image:
-            </label>
-            <div class="col-md-10">
-                <input type="file" name="uploadimage" id="uploadimage">
-                <p class="help-block">
-                    Allowed formats: jpeg, jpg, gif, png
-                </p>
-            </div>          
-        </div>-->
-        <div>
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-10">
-                <label>
-                    <input type="checkbox">I hereby accept the terms and conditions for using this site</label>
-            </div>            
-        </div>
         <div class="row">
             <div class="col-md-2">
             </div>
             <div class="col-md-10">
-                <button type="submit" class="btn btn-info">
+                <button type="button" onClick="document.location.href='signin.html'" class="btn btn-info">
                     Register
                 </button>
             </div>

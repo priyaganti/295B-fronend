@@ -16,16 +16,18 @@ html {
   height: 100%;
 }
 
+
 body {
-  padding: 45px 0;
-  font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-}
+  //padding: 45px 0;
+  //font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+} 
 
 .weather {
-  width: 450px;
+  width: 417px;
   margin: 0px auto;
   text-align: center;
   text-transform: uppercase;
+  font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   /* #1192d3 url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/austin-2.jpg) no-repeat bottom right; */
 }
 

@@ -147,13 +147,13 @@ var jsalarm={
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Back to Home</a>
+				<a class="navbar-brand" href="index.html"><img src="assets/img/logo-new.png" style="margin-top: -5px;" width="65" height="40"></img></a>
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
 					<li><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
                     <li><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
-					<li class="selected"><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i>Demo Page</a></li> 
+					<li class="selected"><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i> Demo Page</a></li> 
 					<li><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>
 					<li><a href="kitchen.html"><i class="fa fa-cutlery fa-lg"></i> Kitchen</a></li>
 					<li><a href="livingRoom.html"><i class="fa fa-gamepad fa-lg"></i> Living Room</a></li>
@@ -162,7 +162,7 @@ var jsalarm={
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
                      <li class="dropdown user-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Steve Miller<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Aswin <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                             <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
@@ -189,44 +189,6 @@ var jsalarm={
 			<div class="alarmText" id="regAlarm"></div>
 			<div class="alarmText" id="trafficAlarm"></div>
 		</div>
-	<!--div class="well col-sm-offset-1 col-sm-10 col-sm-offset-1 "></div>
-	<h4>Alaram Clock</h4>
-	<div id="clock" class="dark">
-			<div class="display">
-				<div class="weekdays"></div>
-				<div class="ampm"></div>
-				<div class="alarm"></div>
-				<div class="digits"></div>
-			</div>
-		</div-->
-		<!--div class="button-holder">
-			<a class="button">Switch Theme</a>
-			<a class="alarm-button"></a>
-		</div-->
-		
-		<!-- starting set alarm clock code  -->
-		
-		<!--div id="jsalarmclock" style="text-align:center;" class="padBottom">
-<div><input type="hidden" id="jsalarm_ct" style="letter-spacing: 2px"></input></div>
-<div>Set Alarm:<span><select></select> Hour</span> <span><select></select> Minutes</span> <span><select></select> Seconds</span></div><br/><br/>
-<button class="btn btn-primary" type="submit" id="submitbutton">Set Alarm</button> <button class="btn btn-default" type="reset" id="resetbutton">Reset</button>
-</div-->
-<!--div id="myModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Turn Off Alarm</h4>
-            </div>
-            <div class="modal-body" style="text-align:center;">
-				<button type="button" class="btn btn-primary" id="offAlarm" onClick="unsetAlarm(this.id)"data-dismiss="modal">Turn Off Alarm</button>
-            </div>
-            <!--div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div-->
-        <!--/div>
-    </div>
-</div-->
 	</div>
 	<div class="row">
 		<div class="well col-sm-6 demo">
@@ -313,7 +275,7 @@ var jsalarm={
 					</div>
 					</div>
 			</div>
-			<div class="form-group">
+			<!--div class="form-group">
 				<div class="well col-md-12"><h4>Produce Section</h4>
 					<table class="table table striped">
 						<tr><td>Items</td>
@@ -349,7 +311,7 @@ var jsalarm={
 												</tr>
 											</table>
 										</div>
-								</div>
+				</div-->
 			</div>
 		</div><!-- 2nd row closing -->
 		<br/>
@@ -358,7 +320,7 @@ var jsalarm={
 			<h4>Television</h4>
 			<div class="form-group" style="position: relative;">
 				<img class="displayed" src="assets/img/tv.png" width="200" height="150"></img>
-				<div style="position: absolute; top:-10px; left:128px">
+				<div style="position: absolute; top:-10px; left:168px">
 					<video width="180" height="140" controls>
 					  <source src="assets/img/nasa.mp4" type="video/mp4">
 					  <source src="assets/img/nasa.ogg" type="video/ogg">
@@ -375,7 +337,7 @@ var jsalarm={
 			<div class="form-group">
 					<label for="company" class="col-sm-3 control-label">Traffic:</label>
 					<div class="col-sm-9">
-						<label for="company" class="col-sm-6 control-label" id="trafficMsg"></label>
+						<label for="company" class="col-sm-9 control-label" id="trafficMsg"></label>
 					</div>
 			</div>
 		</div>
@@ -392,6 +354,12 @@ var jsalarm={
 						<label for="company" class="col-sm-6 control-label" id="temp"></label>
 					</div>
 			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-6 control-label"><br/></label>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-6 control-label"><br/></label>
+			</div>
 			<!--div class="form-group">
 					<label for="company" class="col-sm-6 control-label">Power:</label>
 					<div class="col-sm-6">
@@ -405,68 +373,6 @@ var jsalarm={
 </body>
 <script>
 	$(".machine").bootstrapSwitch();
-/*
-	jsalarm.init()
-	
-var date = new Date();
-var time = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-var hour = date.getHours();
-var min = date.getMinutes();
-var sec = date.getSeconds();
-var alarmClock = {
-	hour: hour,
-	min: min,
-	sec: sec,
-	time: time,
-	status:"No state"
-};
-   var toaster = {
-    status:"default",
-    state:"default",
-	powerSwitch: "OFF"
-};
-
-	var coffeeMachine = {
-    status:"default",
-    state:"default",
-	powerSwitch: "OFF",
-	powderLevel:"Full",
-	temperature:"High",
-	waterLevel:"Enough"
-};
-
-	var controller = {
-	getAlarmState: alarmClock.status,
-	getCoffeeMachPowerState:coffeeMachine.powerSwitch,
-	getToasterPowerState:toaster.powerSwitch
-};
-
-//alert("Alarm status before it is set:"+alarmClock.status);
-//alert("before setting the alram, status in controller is:"+controller.getAlarmState);
-
-console.log(" toaster state before set:" +controller.getToasterPowerState);
-console.log(" Coffee state before set:" +controller.getCoffeeMachPowerState);
-
-function unsetAlarm(clicked){
-	$(".machine").bootstrapSwitch('disabled', false); 
-	$(".machine").bootstrapSwitch('state', true);
-	$(".machine").bootstrapSwitch('disabled', true); 
-	
-	//set alarmClok status to OFF
-	alarmClock.status = "OFF";
-	controller.getAlarmState = alarmClock.status;
-	if(controller.getAlarmState== "OFF"){
-		//power on Toaster
-		toaster.powerSwitch = "ON";
-		controller.getToasterPowerState = toaster.powerSwitch;
-		//power on Coffee Machine
-		coffeeMachine.powerSwitch = "ON";
-		controller.getCoffeeMachPowerState = coffeeMachine.powerSwitch;
-		
-		console.log(" toaster state after set:" +controller.getToasterPowerState);
-		console.log(" Coffee state after set:" +controller.getCoffeeMachPowerState);
-	}
-} */
 
 /******* KITCHEN ******/
 //Refrigerator section
@@ -535,6 +441,15 @@ var x = $( '#page-wrapper > div:nth-child(8) > div > div:nth-child(3) > div > di
 		}
 	});
 	}
+	
+	/*
+	function produceQtyInit(){
+		produceQty = Math.floor(Math.random() * 101); 
+		console.log("produce initializing to: ", produceQty);
+		//milkQtyArray.push(milkQty);
+		localStorage.setItem('produceQuantity', produceQty);
+		displayMilkQty(produceQty, produceId); 
+	}*/
 	
 	function milkQtyInit(){
 		milkQty = Math.floor(Math.random() * 101); 
