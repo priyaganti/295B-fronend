@@ -119,7 +119,6 @@
 								<div class="form-group">
 										<label for="company" class="col-sm-6 control-label">Coffee Status:</label>
 										<div class="col-sm-6">
-										<!--label for="company" class="col-sm-6 control-label" id="coffeeStatus"></label-->
 										<div class="progress">
 										<div class="progress-bar"  id="coffeeStatus" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">Ideal
 										</div></div>
@@ -171,13 +170,12 @@
 							<div class="form-group">
 									<label for="state" class="col-sm-6 control-label">Power:</label>
 									<div class="col-sm-6">
-									<input type="checkbox" name="my-checkbox" class="machine" id="toaster" data-off-color="danger" data-on-color="success"/>
+									<input type="checkbox" name="my-checkbox" class="machine" id="toaster" data-off-color="danger" data-on-color="success" disabled />
 									</div>
 							</div>
 							<div class="form-group">
 										<label for="company" class="col-sm-6 control-label">Toast Status:</label>
 										<div class="col-sm-6">
-										<!--label for="company" class="col-sm-6 control-label" id="coffeeStatus"></label-->
 										<div class="progress">
 										<div class="progress-bar"  id="toastStatus" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">Ideal
 										</div></div>
@@ -227,9 +225,6 @@
 								</div>
 								<div class="form-group">
 										<div class="well col-md-12"><h4>Produce Section</h4>
-									<!--/div>
-										<label for="company" class="col-sm-2 control-label">Food Freshness:</label>
-										<div class="col-sm-12"-->
 											<table class="table table striped">
 												<tr><td>Items</td>
 													<td>Quantities</td>
@@ -263,7 +258,6 @@
 													</td>
 												</tr>
 											</table>
-										<!--label for="company" class="col-sm-6 control-label">TBD</label-->
 										</div>
 								</div>
                         </div><!-- body-->
@@ -290,7 +284,7 @@
 	function textToSpeech(){
 	
 		var text1 = "Good Morning!";
-		var text2 = "You have the following meetings today,ten thirty to eleven, meet professor and show the demo,then from tweleve to one, lunch with teammates, and from three to five, work on the project report";
+		var text2 = "You have the following meetings today,ten thirty to eleven, meet professor and show the demo,then from tweleve to one, lunch with teammates, and from three to five, work on the project Expo";
 		
 		console.log("came to speech");
 		var msg = new SpeechSynthesisUtterance();
@@ -346,7 +340,6 @@
 		} else if(milkQty > 70 && milkQty < 100){
 			console.log("between 70-100");
 			$(milkId).removeClass().addClass("progress-bar progress-bar-success");
-			//$(milkId).addClass("progress-bar-success");
 			$(milkId).css("width", milkQty + "%");
 			$(milkId).attr("aria-valuenow", milkQty + "%");
 			$(milkId).text(milkQty + " %");
@@ -452,10 +445,10 @@
 				 
 				 /*** coffee status ***/	
 				 statusBar(coffeeStat, coffeeBar);
-				 
-				 //setInterval(statusBar(toastStat, toastBar),5000);
 				 /*** toast status ***/	
 				 statusBar(toastStat, toastBar);
+				 
+				 //setInterval(statusBar(toastStat, toastBar),5000);
 				 
 				function statusBar(status, progressBar){
 					width = 0;
@@ -479,6 +472,7 @@
 						clearInterval(interval);
 					}
 					}, 2000);
+					return 
 				}
 			} else{
 					console.log("error Occured");
@@ -524,9 +518,6 @@
 				$(progId).attr("aria-valuenow", pct_left + "%");
 			} 
 		}
-       }); <!-- closing document.ready -->
-		
-		<!----- end PRODUCE ------>
 		
 		/* storage */
 		
@@ -544,6 +535,26 @@
 			alert("Sorry! No Web Storage support..");
 		}
 		
+       }); <!-- closing document.ready -->
+		
+		<!----- end PRODUCE ------>
+		
+		/* storage 
+		
+		if(typeof(Storage) !== "undefined") {
+			sessionStorage.setItem('milkQuantity', milkQty);
+			sessionStorage.setItem('produceQuantity', produceQty);
+			sessionStorage.setItem('eggsQuantity', eggsQty);
+			sessionStorage.setItem('meatQuantity', meatQty);
+			var milk_qty = sessionStorage.getItem('milkQuantity');
+			var pro_qty = sessionStorage.getItem('produceQuantity');
+			var eggs_qty = sessionStorage.getItem('eggsQuantity');
+			var meat_qty = sessionStorage.getItem('meatQuantity');
+			console.log(" milk qty is: " + milk_qty , "produce is: ", pro_qty, "eggs: ", eggs_qty, "meat: ", meat_qty);
+		} else {
+			alert("Sorry! No Web Storage support..");
+		} */
+		
 		var meetings = [];
 		// Get Events from the API
 		if(typeof(Storage) !== "undefined") {
@@ -560,62 +571,7 @@
 		}else{
 			alert("Sorry! No Web Storage support..");
 		}
-		
-	
-		
-		/* var gapiURL="http://192.168.1.11:8000/test.html";
-
-		$.ajax({
-			url: gapiURL,
-			type: 'GET',
-			success: function (resp) {
-				console.log("the ajax call resp is: " + resp);
-			},
-			error: function(e) {
-				console.log('Error: '+e);
-			}  
-		}); 
-			
-		//CORS code//
-		
-		var xmlhttp;
-		var myUrl = "http://localhost:8000/test.html";
-		if (window.XMLHttpRequest)
-		  {// code for IE7+, Firefox, Chrome, Opera, Safari
-		  xmlhttp=new XMLHttpRequest();
-		  }
-		else
-		  {// code for IE6, IE5
-		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		  }
-		xmlhttp.onreadystatechange=function()
-		  {
-		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-			{
-				console.log("response is: ", xmlhttp.responseText);
-			//document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-			}
-		  }
-		xmlhttp.open("GET",myUrl,true);
-		xmlhttp.send();
-		
-		*/
-		
-			
-		// Ajax call to the google Api html page
-		
-	/*	var gapiURL="http://localhost:8000/test.html";
-
-		$.ajax({
-			url: gapiURL,
-			type: 'GET',
-			success: function (resp) {
-				console.log("the ajax call resp is: " + resp);
-			},
-			error: function(e) {
-				console.log('Error: '+e);
-			}  
-		}); */				
+					
 /**** COFFEE MACHINE ****/
 
 var waterLevel = Math.floor((Math.random() * 100)+1);
@@ -628,8 +584,6 @@ var randMachineStatus = machineStatus[Math.floor(Math.random() * machineStatus.l
 document.getElementById('water').innerHTML = waterLevel;
 document.getElementById('powder').innerHTML = powderLevel;
 document.getElementById('filter').innerHTML = randFilterStatus;
-//document.getElementById('status').innerHTML = randMachineStatus;
-
 
 /** Toaster **/
 

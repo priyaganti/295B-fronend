@@ -280,33 +280,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 <div class="col-md-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Daily data for devices</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Realtime sensors Temperature</h3>
                         </div>
                         <div class="panel-body">
                             <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                         </div>
                     </div>
                 </div>
-
-                <!--div class="col-md-4">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"> Rollback </h3>
-                        </div>
-                        <div class="panel-body feed">
-                            <button type="submit" id="stop" onclick="stopQuery()" class="btn btn-default">Stop Update</button>    
-                            <button type="submit" onclick="start()"  class="btn btn-default"> Start Updating </button>
-                            <select type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="dropdownRollback">
-                                <option onclick="get1HourData()" selected="selected">1 Hour</option>
-                                <option onclick="get1DayData()">1 Day</option>
-                                <option onclick="get1WeekData()">1 Week</option>
-                            </select>
-                        </div>
-                    </div>
-                </div-->
             </div>
-
-
 
             <!-- test div here -->
             <div class="row">
@@ -314,10 +295,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 <div class="col-md-8">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Visits Based on a 10 days data</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Energy Consumption</h3>
                         </div>
                         <div class="panel-body">
-                            <div id="shieldui-chart1"></div>
+							<div id="devices"></div>
                         </div>
                     </div>
                 </div>
@@ -340,278 +321,60 @@ google.maps.event.addDomListener(window, 'load', initialize);
             </div>
             <!-- test div ends here -->
 
+			<div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Alarm Clock Set and Changed time</h3>
+                        </div>
+                        <div class="panel-body">
+							<div id="alarmClock"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Traffic Sources One month tracking </h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Coffee Brewing and Consumption </h3>
                         </div>
                         <div class="panel-body">
-                            <div id="shieldui-grid1"></div>
+                            <!--div id="shieldui-grid1"></div-->
+							<div id="coffee"></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Logins per week</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Quantities in Refrigerator </h3>
                         </div>
                         <div class="panel-body">
-                            <div id="shieldui-chart2"></div>
+                            <div id="fridge"></div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-magnet"></i> Server Overview</h3>
-                        </div>
-                        <div class="panel-body">
-                            <ul class="server-stats">
-                                <li>
-                                    <div class="key pull-right">CPU</div>
-                                    <div class="stat">
-                                        <div class="info">60% / 37°C / 3.3 Ghz</div>
-                                        <div class="progress progress-small">
-                                            <div style="width: 70%;" class="progress-bar progress-bar-danger"></div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="key pull-right">Mem</div>
-                                    <div class="stat">
-                                        <div class="info">29% / 4GB (16 GB)</div>
-                                        <div class="progress progress-small">
-                                            <div style="width: 29%;" class="progress-bar"></div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="key pull-right">LAN</div>
-                                    <div class="stat">
-                                        <div class="info">6 Mb/s <i class="fa fa-caret-down"></i>&nbsp; 3 Mb/s <i class="fa fa-caret-up"></i></div>
-                                        <div class="progress progress-small">
-                                            <div style="width: 48%;" class="progress-bar progress-bar-inverse"></div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-4">
-
-                    <header>
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a data-toggle="tab" href="#stats">Users</a>
-                            </li>
-                            <li class="">
-                                <a data-toggle="tab" href="#report">Favorites</a>
-                            </li>
-                            <li class="">
-                                <a data-toggle="tab" href="#dropdown1">Commenters</a>
-                            </li>
-                        </ul>
-                    </header>
-                    <div class="body tab-content">
-                        <div class="tab-pane clearfix active" id="stats">
-                            <h5 class="tab-header"><i class="fa fa-calendar-o fa-2x"></i> Last logged-in users</h5>
-                            <ul class="news-list">
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Ivan Gorge</a></div>
-                                        <div class="position">Software Engineer</div>
-                                        <div class="time">Last logged-in: Mar 12, 11:11</div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Roman Novak</a></div>
-                                        <div class="position">Product Designer</div>
-                                        <div class="time">Last logged-in: Mar 12, 19:02</div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Teras Uotul</a></div>
-                                        <div class="position">Chief Officer</div>
-                                        <div class="time">Last logged-in: Jun 16, 2:34</div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Deral Ferad</a></div>
-                                        <div class="position">Financial Assistant</div>
-                                        <div class="time">Last logged-in: Jun 18, 4:20</div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Konrad Polerd</a></div>
-                                        <div class="position">Sales Manager</div>
-                                        <div class="time">Last logged-in: Jun 18, 5:13</div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tab-pane" id="report">
-                            <h5 class="tab-header"><i class="fa fa-star fa-2x"></i> Popular contacts</h5>
-                            <ul class="news-list news-list-no-hover">
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Pol Johnsson</a></div>
-                                        <div class="options">
-                                            <button class="btn btn-xs btn-success">
-                                                <i class="fa fa-phone"></i>
-                                                Call
-                                            </button>
-                                            <button class="btn btn-xs btn-warning">
-                                                <i class="fa fa-envelope-o"></i>
-                                                Message
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Terry Garel</a></div>
-                                        <div class="options">
-                                            <button class="btn btn-xs btn-success">
-                                                <i class="fa fa-phone"></i>
-                                                Call
-                                            </button>
-                                            <button class="btn btn-xs btn-warning">
-                                                <i class="fa fa-envelope-o"></i>
-                                                Message
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Eruos Forkal</a></div>
-                                        <div class="options">
-                                            <button class="btn btn-xs btn-success">
-                                                <i class="fa fa-phone"></i>
-                                                Call
-                                            </button>
-                                            <button class="btn btn-xs btn-warning">
-                                                <i class="fa fa-envelope-o"></i>
-                                                Message
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Remus Reier</a></div>
-                                        <div class="options">
-                                            <button class="btn btn-xs btn-success">
-                                                <i class="fa fa-phone"></i>
-                                                Call
-                                            </button>
-                                            <button class="btn btn-xs btn-warning">
-                                                <i class="fa fa-envelope-o"></i>
-                                                Message
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Lover Lund</a></div>
-                                        <div class="options">
-                                            <button class="btn btn-xs btn-success">
-                                                <i class="fa fa-phone"></i>
-                                                Call
-                                            </button>
-                                            <button class="btn btn-xs btn-warning">
-                                                <i class="fa fa-envelope-o"></i>
-                                                Message
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tab-pane" id="dropdown1">
-                            <h5 class="tab-header"><i class="fa fa-comments fa-2x"></i> Top Commenters</h5>
-                            <ul class="news-list">
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Edin Garey</a></div>
-                                        <div class="comment">
-                                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
-                                            aut odit aut fugit,sed quia
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Firel Lund</a></div>
-                                        <div class="comment">
-                                            Duis aute irure dolor in reprehenderit in voluptate velit
-                                             esse cillum dolore eu fugiat.
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Jessica Desingter</a></div>
-                                        <div class="comment">
-                                            Excepteur sint occaecat cupidatat non proident, sunt in
-                                             culpa qui officia deserunt.
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Novel Forel</a></div>
-                                        <div class="comment">
-                                            Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque.
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user fa-4x pull-left"></i>
-                                    <div class="news-item-info">
-                                        <div class="name"><a href="#">Wedol Reier</a></div>
-                                        <div class="comment">
-                                            Laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis
-                                            et quasi.
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-			
+			 <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Television Watching </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="tv"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 			<div class="row">
                 <div class="col-lg-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Weather @ Work Place</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Weather @ Work Place</h3>
                         </div>
                         <div class="panel-body">
                             <!--div id="shieldui-grid1"></div-->
@@ -622,7 +385,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 				<div class="col-lg-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Weather @ Home City</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Weather @ Home City</h3>
                         </div>
                         <div class="panel-body">
 							<div class="well weather" id="homeWeather"></div>
@@ -638,17 +401,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
                                 <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Traffic</h3>
                             </div>
                             <div class="panel-body" style="background-color:#fff; height:100%; width:100%;">
-                						<!--div id="control">
-                						  <strong>Home:</strong>
-                						  <select id="start" onchange="calcRoute();">
-                							<option value="san jose, ca">San Jose, CA</option>
-                						  </select>
-                						  <strong>Work:</strong>
-                						  <select id="end" onchange="calcRoute();">
-                							<option value="san jose, ca">San Jose</option>
-                							<option value="san francisco, ca">San Francisco, CA</option>
-                						  </select>
-                						</div-->
                 						<div class="col-lg-8" id="map-canvas"></div>
                 						<div class="col-lg-4" id="directions-panel" style="background-color: #fff !important;"></div>
     						            </div><!--panel-body-->
@@ -660,196 +412,77 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
     </div>
     <!-- /#wrapper -->
-    <script type="text/javascript">
-        jQuery(function ($) {
-            var performance = [12, 43, 34, 22, 12, 33, 4, 17, 22, 34, 54, 67],
-                visits = [123, 323, 443, 32],
-                traffic = [
-                {
-                    Source: "Direct", Amount: 323, Change: 53, Percent: 23, Target: 600
-                },
-                {
-                    Source: "Refer", Amount: 345, Change: 34, Percent: 45, Target: 567
-                },
-                {
-                    Source: "Social", Amount: 567, Change: 67, Percent: 23, Target: 456
-                },
-                {
-                    Source: "Search", Amount: 234, Change: 23, Percent: 56, Target: 890
-                },
-                {
-                    Source: "Internal", Amount: 111, Change: 78, Percent: 12, Target: 345
-                }];
-
-
-            $("#shieldui-chart1").shieldChart({
-                theme: "dark",
-
-                primaryHeader: {
-                    text: "Visitors"
-                },
-                exportOptions: {
-                    image: false,
-                    print: false
-                },
-                dataSeries: [{
-                    seriesType: "area",
-                    collectionAlias: "Q Data",
-                    data: performance
-                }]
-            });
-
-            $("#shieldui-chart2").shieldChart({
-                theme: "dark",
-                primaryHeader: {
-                    text: "Traffic Per week"
-                },
-                exportOptions: {
-                    image: false,
-                    print: false
-                },
-                dataSeries: [{
-                    seriesType: "pie",
-                    collectionAlias: "traffic",
-                    data: visits
-                }]
-            });
-
-            $("#shieldui-grid1").shieldGrid({
-                dataSource: {
-                    data: traffic
-                },
-                sorting: {
-                    multiple: true
-                },
-                rowHover: false,
-                paging: false,
-                columns: [
-                { field: "Source", width: "170px", title: "Source" },
-                { field: "Amount", title: "Amount" },                
-                { field: "Percent", title: "Percent", format: "{0} %" },
-                { field: "Target", title: "Target" },
-                ]
-            });            
-        });        
-    </script>
-
-
 <script>
-/*
-var indoorTemp = [];
-var outdoorTemp = [];   
-var fridgeTemp = [];
-var timeStamp = [];
 
-var startQuery = setInterval(updateData, 5000);
-
-
-function updateData(){
-    $.ajax({ //indoor
-        url: 'http://Default-Environment-qnbzq3unpn.elasticbeanstalk.com/1/getTemp', 
-        dataType: 'jsonp',
-        success: function(result){
-            //alert(JSON.stringify(result));
-            indoorTemp.push(result.temperature);
-            //alert(indoorTemp);
-            }
-        });
-    $.ajax({ //fridge
-        url: 'http://Default-Environment-qnbzq3unpn.elasticbeanstalk.com/2/getTemp', 
-        dataType: 'jsonp',
-        success: function(result){
-           // alert(JSON.stringify(result));
-            fridgeTemp.push(result.temperature);
-            //alert(fridgeTemp);
-            }
-        });
-    $.ajax({ //outdoor
-        url: 'http://Default-Environment-qnbzq3unpn.elasticbeanstalk.com/3/getTemp', 
-        dataType: 'jsonp',
-        success: function(result){
-           // alert(JSON.stringify(result));
-            outdoorTemp.push(result.temperature);
-            //alert(outdoorTemp);
-        
-            }
-        });
-    
-    
-    timeStamp.push(createTimeStamp());
-    replot();
+var eggs = [11, 10, 7, 5, 4, 2, 12];
+var eggsQty = [];
+for(var i=0; i < eggs.length; i++){
+	eggsQty[i] = (eggs[i]* 100)/12;
 }
-function createTimeStamp(){
-    var time = new Date();
-    var hh = time.getHours();
-    var mm = time.getMinutes();
-    var ss = time.getSeconds();
-    var stamp = hh +":" + mm + ":" + ss;
-    return stamp;
-}
+var produce = [70, 60, 45, 33, 21, 15, 100];
+var milkQty = [40, 50, 100, 67, 88, 79, 20];
+var meatQty = [50, 100, 0, 100, 50, 0, 100];
 
-function replot(){
-    $(function () {
-    $('#container').highcharts({
-        title: {
-            text: 'Realtime Sensor Temperature',
-            x: -20 //center
-        },
-        subtitle: {
-            text: 'Source: NodeJS REST from AWS BeanStalk',
-            x: -20
-        },
-        xAxis: {
-            categories: timeStamp
-        },
-        yAxis: {
-            title: {
-                text: 'Temperature (°F)'
-            },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }]
-        },
-        tooltip: {
-            valueSuffix: '°F'
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-            borderWidth: 0
-        },
-        series: [{
-            name: 'Indoor Sensor',
-            data: indoorTemp
-        }, {
-            name: 'Refridgerator',
-            data: fridgeTemp
-        }, {
-            name: 'Outdoor Sensor',
-            data: outdoorTemp
-        }]
-    });
-});
-    
-}   
-    
-function stopQuery(){
-        clearInterval(startQuery);
-      //  alert('stop called');
+// energy Consumption for a month
+var fridge = create_non_unique_random_array(31,30,35);
+var tv = create_non_unique_random_array(31,38,45);
+var coffee = create_non_unique_random_array(31,2,12);
+var toaster = create_non_unique_random_array(31,2,15);
+var thermo = create_non_unique_random_array(31,1,7);
+var alarm = create_non_unique_random_array(31,1,3);
+
+var consumed = create_non_unique_random_array(7,1,3);
+var brewed = create_non_unique_random_array(7,1,5);
+console.log("brewed..", brewed);
+console.log("consumed coffee..", consumed);
+var wasted = wasted(consumed, brewed);
+console.log("wasted coffee is", wasted);
+
+function wasted(consumed, brewed){
+	var wastedCoffee = new Array();
+	for(var i = 0; i < 7; i++){
+		if(consumed[i] > brewed[i]){
+			consumed[i] = 0;
+		}
+		wastedCoffee[i] = brewed[i] - consumed[i];
+	}
+	return wastedCoffee;
+} 
+
+var fridgeAvg = avgCalc(fridge);
+var tvAvg = avgCalc(tv);
+var coffeeAvg = avgCalc(coffee);
+var toasterAvg = avgCalc(toaster);
+var thermostatAvg = avgCalc(thermo);
+var alarmAvg = avgCalc(alarm);
+
+function avgCalc(elmt){
+	var sum = 0;
+	for( var i = 0; i < elmt.length; i++ ){
+		sum += parseInt( elmt[i], 10 ); 
+	}
+	var avg = sum/elmt.length;
+	var rounding = Math.round(avg * 10)/10;
+	return rounding;
 }
 
-function start(){
-        setInterval(updateData, 5000);
 
-        document.getElementById("stop").addEventListener("click", stopQuery);
+function create_non_unique_random_array(num_elements,min,max) {
+
+    var nums = new Array;
+
+    for (var element=0; element<num_elements; element++) {
+        nums[element] = random_number(min,max);
+    }
+
+    return (nums);
 }
 
-*/
+function random_number(min,max) {
 
-		
+    return (Math.round((max-min) * Math.random() + min));
+}
+
 	
 function stopQuery(){
 		clearInterval(startQuery);
@@ -1001,19 +634,55 @@ $(function () {
                 }()) 
             }]
         });
-    });
-});
-
-// Fridge Chart
-var eggs = [11, 10, 7, 5, 4, 2, 12];
-		var eggsQty = [];
-		for(var i=0; i < eggs.length; i++){
-			eggsQty[i] = (eggs[i]*100)/12;
-		}
-		var produce = [70, 60, 45, 33, 21, 15, 100];
-		console.log(eggsQty);
-	$(function () {
-    $('#container').highcharts({
+		
+		
+		// Inserting Device Consumption Chart
+		
+		$('#devices').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Devices Energy Consumption for a Month'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Energy Consumption',
+                data: [
+                    ['Refrigerator',   fridgeAvg],
+                    ['Television',       tvAvg],
+                    {
+						name: 'Coffee Machine',
+						y: coffeeAvg,
+						sliced: true,
+						selected: true
+					},
+                    ['Toaster',     toasterAvg],
+                    ['Thermostat',   thermostatAvg],
+					['Alarm Clock',   alarmAvg]
+					
+					//
+                ]
+            }]
+        });
+		
+		// Refrigerator Chart
+		 $('#fridge').highcharts({
         chart: {
             type: 'column'
         },
@@ -1021,17 +690,16 @@ var eggs = [11, 10, 7, 5, 4, 2, 12];
             text: 'Groceries Quantity over a week'
         },
         subtitle: {
-            text: 'Source: WorldClimate.com'
         },
         xAxis: {
             categories: [
-                'Mon',
-                'Tue',
-                'Wed',
-                'Thu',
-                'Fri',
-                'Sat',
-                'Sun'
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+                'Sunday'
             ],
             crosshair: true
         },
@@ -1057,28 +725,263 @@ var eggs = [11, 10, 7, 5, 4, 2, 12];
         },
         series: [{
             name: 'Milk',
-            data: [40, 50, 100, 67, 88, 79, 20]
-			//data: milkQtyArray
+			data: milkQty
 
         }, {
             name: 'Produce',
-            //data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0]
 			data: produce
 
         }, {
             name: 'Egss',
-            //data: [12, 7, 9, 10, 6, 8, 11]
 			data : eggsQty
 
         }, {
             name: 'Meat',
-            data: [50, 100, 0, 100, 50, 0, 100]
+            data: meatQty
 
+        }]
+    });
+	
+	//Coffee Consumption Chart
+
+$(function () {
+    $('#coffee').highcharts({
+        chart: {
+            type: 'areaspline'
+        },
+        title: {
+            text: 'Coffee Production, Consumption & Wastage in a week'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 150,
+            y: 100,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        xAxis: {
+            categories: [
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+                'Sunday'
+            ],
+            plotBands: [{ // visualize the weekend
+                from: 4.5,
+                to: 6.5,
+                color: 'rgba(68, 170, 213, .2)'
+            }]
+        },
+        yAxis: {
+            title: {
+                text: 'Measurement in Cups'
+            }
+        },
+        tooltip: {
+            shared: true,
+            valueSuffix: ' Cups'
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            areaspline: {
+                fillOpacity: 0.5
+            }
+        },
+        series: [{
+            name: 'Cups Brewed',
+			data: brewed
+        }, {
+            name: 'Cups Consumed',
+			data: consumed
+        },
+		{
+            name: 'Cups wasted',
+			data: wasted
         }]
     });
 });
 
+	// alarm clock chart
+	$(function () {
+    $('#alarmClock').highcharts({
+        chart: {
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Alarm Set and changed times in a week'
+        },
+        xAxis: [{
+            categories: [
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+                'Sunday'
+            ],
+            crosshair: true
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value} AM',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: 'Alarm Set',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: 'Alarm Changed',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value} AM',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            x: 120,
+            verticalAlign: 'top',
+            y: 100,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        series: [{
+            name: 'Alarm Set',
+            type: 'column',
+            //yAxis: 1,
+            data: [6, 6.3, 7, 6, 6, 9, 9],
+            tooltip: {
+                valueSuffix: ' AM'
+            }
 
+        }, {
+            name: 'Alarm Changed to',
+            type: 'spline',
+            data: [5.11, 5.15, 6.22, 5.15, 5.16, 9, 9],
+            tooltip: {
+                valueSuffix: ' AM'
+            }
+        }]
+    });
+});
+		
+	// television viewing morning and evening
+	$(function () {
+    $('#tv').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Television viewing Morning & Evening'
+        },
+        xAxis: {
+            categories: [
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+                'Sunday'
+            ]
+        },
+        yAxis: [{
+            min: 0,
+            title: {
+                text: 'Morning Time'
+            }
+        }, {
+            title: {
+                text: 'Evening Time'
+            },
+            opposite: true
+        }],
+        legend: {
+            shadow: false
+        },
+        tooltip: {
+            shared: true
+        },
+        plotOptions: {
+            column: {
+                grouping: false,
+                shadow: false,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'turn OFF',
+            color: 'rgba(165,170,217,1)',
+            //data: [150, 73, 20],
+			 data: [8, 7.45, 8, 8, 7.41, 12, 11.25],
+			 tooltip: {
+                valueSuffix: ' AM'
+            },
+            pointPadding: 0.3,
+            pointPlacement: -0.2
+        }, {
+            name: 'Morning TV turn ON',
+            color: 'rgba(126,86,134,.9)',
+            //data: [140, 90, 40],
+			data: [7, 7.15, 7.32, 7.25, 7, 10, 9.25],
+			tooltip: {
+                valueSuffix: ' AM'
+            },
+            pointPadding: 0.4,
+            pointPlacement: -0.2
+        }, {
+            name: 'turn OFF',
+            color: 'rgba(248,161,63,1)',
+            //data: [183.6, 178.8, 198.5],
+			data: [9, 9.35, 10.32, 9.25, 12.25, 10, 9.25],
+            tooltip: {
+                valueSuffix: ' PM'
+            },
+            pointPadding: 0.3,
+            pointPlacement: 0.2,
+            yAxis: 1
+        }, {
+            name: 'Evening TV turn ON',
+            color: 'rgba(186,60,61,.9)',
+            //data: [203.6, 198.8, 208.5],
+			data: [7, 7.45, 7.32, 8, 8.31, 7, 5.35],
+            tooltip: {
+                valueSuffix: ' PM'
+            },
+            pointPadding: 0.4,
+            pointPlacement: 0.2,
+            yAxis: 1
+        }]
+    });
+});
+		
+    });
+});
 
 </script>
 

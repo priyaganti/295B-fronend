@@ -50,20 +50,12 @@ var jsalarm={
 	},
 	showcurrenttime:function(){
 		var dateobj=new Date()
-		//var ct=this.padfield(dateobj.getHours())+":"+this.padfield(dateobj.getMinutes())+":"+this.padfield(dateobj.getSeconds())
-		/*var ct = this.padfield(6)+":"+this.padfield(00)
-		console.log("the ct is:", ct); */
 		var ct=this.padfield(dateobj.getHours())+":"+this.padfield(dateobj.getMinutes())
 		this.ctref.innerHTML=ct
 		this.ctref.setAttribute("title", ct)
 		if (typeof this.hourwake!="undefined"){ //if alarm is set
-			//if (this.ctref.title==(this.hourwake+":"+this.minutewake+":"+this.secondwake)){
 			if (this.ctref.title==(this.hourwake+":"+this.minutewake)){
 				clearInterval(jsalarm.timer)
-				/* window.location=document.getElementById("musicloc").value
-				var snd = new Audio("Buzz.wav");
-				snd.play();
-				alert("the alarm is turned off"); */
 				var snd = new Audio("assets/Buzz.wav");
 				$("#myModal").modal('show');
 				$('.modal').on('hidden.bs.modal', function () {
@@ -71,7 +63,6 @@ var jsalarm={
 						this.currentTime = 0;
 						this.play();
 					}, false);
-					//snd.loop = false;
 					snd.pause();
 				})
 
@@ -102,19 +93,15 @@ var jsalarm={
 			jsalarm.hourwake=undefined
 			jsalarm.hourselect.disabled=false
 			jsalarm.minuteselect.disabled=false
-			//jsalarm.secondselect.disabled=false
-			//resetAll();
 			return false
 		}
 		var selections=document.getElementsByTagName("select")
 		this.hourselect=selections[0]
 		this.minuteselect=selections[1]
-		//this.secondselect=selections[2]
 		for (var i=0; i<60; i++){
 			if (i<24) {//If still within range of hours field: 0-23
 			this.hourselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getHours()==i)}
 			this.minuteselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getMinutes()==i)
-			//this.secondselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getSeconds()==i)
 		} 
 		jsalarm.showcurrenttime()
 		jsalarm.timer=setInterval(function(){jsalarm.showcurrenttime()}, 1000)
@@ -123,10 +110,8 @@ var jsalarm={
 		console.log("inside set Alram");
 		this.hourwake=this.hourselect.options[this.hourselect.selectedIndex].value
 		this.minutewake=this.minuteselect.options[this.minuteselect.selectedIndex].value
-		//this.secondwake=this.secondselect.options[this.secondselect.selectedIndex].value
 		this.hourselect.disabled=true
 		this.minuteselect.disabled=true
-		//this.secondselect.disabled=true
 	}
 }
 	</script>
@@ -142,7 +127,6 @@ var jsalarm={
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <!--a class="navbar-brand" href="index.html">Back to Home</a-->
 				 <a class="navbar-brand" href="index.html"><img src="assets/img/logo-new.png" style="margin-top: -5px;" width="65" height="40"></img></a>
             </div>
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -172,9 +156,7 @@ var jsalarm={
             </div>
         </nav>
 
-       <div id="page-wrapper">
-		<!-- Adding Priyanka's code -->
-		
+       <div id="page-wrapper">		
 		<h2 style="text-align:center;">Bedroom</h2>
 		<ul class="pager">
 			<li class="previous"><a href="index.html">Previous</a></li>
@@ -208,9 +190,6 @@ var jsalarm={
             <div class="modal-body" style="text-align:center;">
 				<button type="button" class="btn btn-primary" id="offAlarm" onClick="test();"data-dismiss="modal">Turn Off Alarm</button>
             </div>
-            <!--div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div-->
         </div>
     </div>
 </div>
@@ -226,74 +205,17 @@ $('#autoSet').click(function(){
 
 var setStatus = false; 
 function test(){
-	console.log("came to test");
-	/* $(".machine").bootstrapSwitch('disabled', false); 
-	$(".machine").bootstrapSwitch('state', true);
-	$(".machine").bootstrapSwitch('disabled', true); */
 	setStatus = true;
 	localStorage.setItem('buttonStatus', setStatus);
 	window.location = "kitchen.html";
 }
 	jsalarm.init()
 	$(".machine").bootstrapSwitch();
-var date = new Date();
-var time = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-var hour = date.getHours();
-var min = date.getMinutes();
-var sec = date.getSeconds();
-var alarmClock = {
-	hour: hour,
-	min: min,
-	sec: sec,
-	time: time,
-	status:"No state"
-};
-   var toaster = {
-    status:"default",
-    state:"default",
-	powerSwitch: "OFF"
-};
-
-	var coffeeMachine = {
-    status:"default",
-    state:"default",
-	powerSwitch: "OFF",
-	powderLevel:"Full",
-	temperature:"High",
-	waterLevel:"Enough"
-};
-
-	var controller = {
-	getAlarmState: alarmClock.status,
-	getCoffeeMachPowerState:coffeeMachine.powerSwitch,
-	getToasterPowerState:toaster.powerSwitch
-};
-
-//alert("Alarm status before it is set:"+alarmClock.status);
-//alert("before setting the alram, status in controller is:"+controller.getAlarmState);
-
-console.log(" toaster state before set:" +controller.getToasterPowerState);
-console.log(" Coffee state before set:" +controller.getCoffeeMachPowerState);
 
 function unsetAlarm(clicked){
 	$(".machine").bootstrapSwitch('disabled', false); 
 	$(".machine").bootstrapSwitch('state', true);
 	$(".machine").bootstrapSwitch('disabled', true); 
-	
-	//set alarmClok status to OFF
-	alarmClock.status = "OFF";
-	controller.getAlarmState = alarmClock.status;
-	if(controller.getAlarmState== "OFF"){
-		//power on Toaster
-		toaster.powerSwitch = "ON";
-		controller.getToasterPowerState = toaster.powerSwitch;
-		//power on Coffee Machine
-		coffeeMachine.powerSwitch = "ON";
-		controller.getCoffeeMachPowerState = coffeeMachine.powerSwitch;
-		
-		console.log(" toaster state after set:" +controller.getToasterPowerState);
-		console.log(" Coffee state after set:" +controller.getCoffeeMachPowerState);
-	}
 }
 
 </script>

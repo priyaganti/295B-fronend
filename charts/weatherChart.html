@@ -9,6 +9,11 @@
 	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 </body>
 <script>
+var consume = 
+var brewed = Math.floor(Math.random());
+var waste = 
+
+
 $(function () {
     $('#container').highcharts({
         chart: {
@@ -61,13 +66,23 @@ $(function () {
             }
         },
         series: [{
-            name: 'San Francisco',
-            data: [60, 65, 73, 70, 69, 58, 62]
+            name: 'Cups Brewed',
+            //data: [60, 65, 63, 60, 69, 58, 62]
+			data: [1, 1, 3, 2, 0, 5, 5]
         }, {
-            name: 'San Jose',
-            data: [65, 68, 78, 75, 73, 63, 68]
+            name: 'Cups Consumed',
+			data: [0, 0, 2, 1, 0, 3, 3]
+            //data: [70, 75, 78, 75, 73, 79, 78]
+        },
+		{
+            name: 'Cups wasted',
+			data: [0, 0, 1, 1, 0, 2, 2]
+            //data: [70, 75, 78, 75, 73, 79, 78]
         }]
     });
 });
+
+
+
 </script>
 </html>
